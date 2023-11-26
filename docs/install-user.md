@@ -11,16 +11,19 @@
 2. In P4V, enter the address given by your Helix Core Server administrator in the Server label.
 
 3. Enter your username which is the first letter of your first name, and your full last name (for example, if your name is John Doe, il will be jdoe).
+
    ![Login window](assets/helix-core/1-login.PNG)
 
 4. Click on OK, then this prompt will appear :
+
    ![Unicode selection window](assets/helix-core/2-unicode.PNG)
 
    Choose `Unicode (UTF-8)` then valid.
 
-5. A Window or a web page will be displayed, enter your credentials (email and password).
+6. A Window or a web page will be displayed, enter your credentials (email and password).
 
-6. Now, you can see P4V interface.
+7. Now, you can see P4V interface.
+
    ![P4V Interfaces](assets/helix-core/3-p4v-interface.PNG)
 
 It has 3 main pane :
@@ -39,9 +42,11 @@ It has 3 main pane :
 2. Change the workspace to follow a convention : username_stream-name (e.g jdoe_main or jdoe_arts).
 3. Choose the folder on which the files will be put in workspace root.
 4. For the stream, select Browse and pick //<YOUR_PROJECT_NAME>/main.
+
    ![Create a Workspace](assets/helix-core/4-workspace-creation.PNG)
 
 5. Go to Advanced, enable `Rmdir` and select `Revert unchanged files` in `On submit` dropdown.
+
    ![Configure Workspace](assets/helix-core/5-workspace-settings.PNG)
 
 6. Press OK.
@@ -86,9 +91,11 @@ It has 3 main pane :
 ### Submit a changelist
 
 1. Create a new Blueprint and save it. A green sum sign appear on the new Blueprint meaning it's mark for add.
+
    ![Mark for add icon](assets/helix-core/6-mark-for-add.PNG)
 
 2. At the bottom right corner, click on Revision Control > Submit Content. This window will be displayed :
+
    ![Submit content](assets/helix-core/7-submit-content.PNG)
 
 3. After setting a description, you just need to click on `Submit`.
