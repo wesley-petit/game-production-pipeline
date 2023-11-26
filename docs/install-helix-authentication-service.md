@@ -84,6 +84,7 @@
    ```
 
 4. In configuration steps, override some defaults values :
+
 | Parameter                | Value                      | Details                                                                                  |
 | ------------------------ | -------------------------- | ---------------------------------------------------------------------------------------- |
 | Helix Server P4PORT      | <YOUR_HELIX_CORE_PORT>     | NA                                                                                       |
@@ -110,7 +111,7 @@
 
 7. If you enabled logging in the extension configuration, you could find them by typing :
 
-   ````bash
+   ```bash
    p4 extension --list --type=extension
    ```
 
