@@ -1,4 +1,4 @@
-# Installation guide for Docker and Portainer
+# Docker and Portainer installation guide
 
 ## Installation
 
