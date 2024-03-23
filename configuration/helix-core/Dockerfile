@@ -1,8 +1,7 @@
 FROM ubuntu:focal
 
 # Update our main system
-RUN apt-get update
-RUN apt-get dist-upgrade -y
+RUN apt-get update --fix-missing
 
 # Get some dependencies for adding apt repositories
 RUN apt-get install -y wget gnupg git
@@ -18,4 +17,4 @@ RUN apt-get update
 RUN apt-get install -y helix-p4d
 
 # Go into our directory, start Perforce, and view the log outputs
-CMD chown -R perforce:perforce /datas && cd /dbs && p4dctl start master && tail -F /datas/logs/log
+CMD chown -R perforce:perforce /data && cd /dbs && p4dctl start master && tail -F /data/logs/log

@@ -1,16 +1,17 @@
 version: '3'
 services:
-  perforce:
+  helix.core:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: helix-core
     restart: unless-stopped
     volumes:
       - ./p4dctl.conf.d:/etc/perforce/p4dctl.conf.d
-      - ./datas:/datas
+      - ./data:/data
       - ./dbs:/dbs
     environment:
-      - P4PORT=1666
-      - P4ROOT=/datas
+      - P4PORT=ssl:1666
+      - P4ROOT=/data
     ports:
       - 1666:1666
