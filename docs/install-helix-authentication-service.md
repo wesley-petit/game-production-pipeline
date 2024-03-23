@@ -2,7 +2,7 @@
 
 ## [Installation](https://hub.docker.com/r/perforce/helix-auth-svc)
 
-1. Get official Helix Authentication image :
+1. Get the official Helix Authentication image :
 
    ```bash
    docker pull perforce/helix-auth-svc
@@ -11,13 +11,13 @@
 2. Create a folder :
 
    ```bash
-   mkdir /srv/dockers/helix-authentication
+   mkdir -p /srv/dockers/helix-authentication && cd /srv/dockers/helix-authentication
    ```
 
 3. Create a .env file containing [Helix Authentication settings](https://www.perforce.com/manuals/helix-auth-svc/Content/HAS/configuring-has.html#Configuring_Helix_Authentication_Service).
 
    ```bash
-   nano /srv/dockers/helix-authentication/.env
+   nano .env
    ```
 
 4. Paste the content in your env file and change the SVC_BASE_URI to the service url (e.g https://SRV_IP:3000/). :warning: Do not add single or double quote in an .env file.
@@ -37,7 +37,7 @@
 
 1. Create an account on [Auth0](https://auth0.com/signup?signUpData=%7B%22category%22%3A%22button%22%7D), it will unify authentication for Helix and other services. Complete all steps depending on your location.
 
-2. In Auth0, create a `Regular Web Application` without specifying the technology. It will alow Helix Authentication to use Auth0 for Authentication.
+2. In Auth0, create a `Regular Web Application` without specifying the technology. It will allow Helix Authentication to use Auth0 for Authentication.
 
 3. Now, go to Applications > <YOUR_NEWLY_APPLICATION_CREATED> > Settings and keep aside `Client ID` and `Client Secret`, it will be needed for Helix Authentication variables.
 
@@ -74,13 +74,13 @@
 2. Clone the [Helix Authentication extension](https://github.com/perforce/helix-authentication-extension/tree/main) :
 
    ```bash
-   git clone https://github.com/perforce/helix-authentication-extension.git
+   git clone https://github.com/perforce/helix-authentication-extension.git /srv/helix-authentication-extension
    ```
 
 3. Launch the configuration script :
 
    ```bash
-   bash helix-authentication-extension/bin/configure-login-hook.sh
+   bash /srv/helix-authentication-extension/bin/configure-login-hook.sh
    ```
 
 4. In configuration steps, override some defaults values :
@@ -92,10 +92,10 @@
 | Service base URL         | <YOUR_SVC_BASE_URI>        | Helix Authentication Service URL                                                         |
 | Preferred auth protocol  | NA                         | NA targeted                                                                              |
 | Debug logging enabled    | yes                        |                                                                                          |
-| List of non-SSO users    | commander                  | At least one superuser that does not authenticate using SSO to always keep the control   |
-| List of non-SSO groups   | NA                         | Avoid generic name easily targeted                                                       |
 | List of SSO users        | NA                         | Leave blank to apply rule on a group. It's cleaner and easy to maintain                  |
 | List of SSO groups       | <YOUR_PERFORCE_GROUP_NAME> |                                                                                          |
+| List of non-SSO users    | commander automation       | At least one superuser that does not authenticate using SSO to always keep the control   |
+| List of non-SSO groups   | NA                         | Avoid generic name easily targeted                                                       |
 | Name identifier property | email                      | Trigger variable used as unique user identifier, one of: `fullname`, `email`, or `user`. |
 | Perforce user property   | email                      | Field within identity provider user profile containing unique user identifer.            |
 

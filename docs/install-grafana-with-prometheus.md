@@ -2,11 +2,11 @@
 
 ## Introduction
 
-In this guide, we explain how to install and configure a dashboard of server metrics.
+In this guide, we explain how to install and configure a metrics dashboard on a server.
 
 ## Installation
 
-This section has for goal to install services for serveur monitoring (disk usage...) in real time.
+This section has for goal to install services for server monitoring (disk usage...) in real time.
 
 ### [Grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/)
 
@@ -16,7 +16,7 @@ This section has for goal to install services for serveur monitoring (disk usage
    mkdir /srv/dockers/grafana && cd /srv/dockers/grafana
    ```
 
-2. Copy all files of the repository under 'configuration/grafana' in the grafana folder of your server.
+2. Copy all files of the repository under `configuration/grafana` in the grafana folder of your server.
 
 3. (Optional) If you want to use an anonymous account, pull `grafana/grafana-enterprise` from portainer.
 
@@ -61,23 +61,28 @@ This section has for goal to install services for serveur monitoring (disk usage
 6. Go to http://<YOU_SRV_IP>:<PROMETHEUS_PORT>/ and you will see this interface :
    ![Prometheus interface](assets/prometheus/0-prometheus-interface.PNG)
 
-Créer la base dans Grafana
-Créer le dashboard dans Grafana
-Parefeu enlever le node exporter ?
-Préciser l'ip et le port dans le prometheus.yml
-Activer https
-
-Lien à voir :
-
-- <https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-prometheus/prometheus-config-examples/docker-compose-linux/>
-- <https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/>
-- <https://grafana.com/grafana/dashboards/?collector=nodeexporter&dataSource=prometheus&orderBy=reviewsCount&direction=desc&category=hostmetrics>
-- <https://www.youtube.com/watch?v=jj38y6f6UpE&list=PLJ9PPJQtdJ2tZ6Q2A30jobDqkD21S5Y0q&index=13>
-
 ## Configuration
+
+1. On Grafana, go to `Connections > Data sources` to add a new data sources.
+ 
+2. Click on `Add data sources` and search for Prometheus.
+
+3. Now, you only have to set your prometheus url in the following interface then click on `Save & Test`.
+   ![Prometheus data source configuration](assets/grafana/0-add-prometheus-source.PNG)
+
+4. Go back to the home page and click on `Dashboards > Create a Dashboard > Import dashboard`.
+
+5. Load the dashboard 1860, it's the [Node Exporter Full Dashboard](https://grafana.com/grafana/dashboards/1860-node-exporter-full/).
+   You can find more dashboard in [Grafana website](https://grafana.com/grafana/dashboards/).
+   ![Prometheus data source configuration](assets/grafana/1-add-prometheus-dashboard.PNG)
+
+6. Now, select your Prometheus source then click on `Import`.
+   ![Add Prometheus data source in a Grafana dashboard](assets/grafana/2-add-prometheus-source-in-dashboard.PNG)
 
 ## References
 
 - [Grafana installation](https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/)
 - [Grafana docker configuration](https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/)
 - [Monotor a Server with Grafana and Prometheus](https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-prometheus/prometheus-config-examples/docker-compose-linux/)
+- [Node Exporter Full Dashboard](https://grafana.com/grafana/dashboards/1860-node-exporter-full/)
+- [Grafana Dashboard](https://grafana.com/grafana/dashboards/)
