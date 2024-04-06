@@ -52,7 +52,7 @@
 2. Install Portainer :
 
    ```bash
-   docker compose up -d
+   docker-compose up --build -d
    ```
 
 3. Access Portainer Dashboard with the following address: [https://localhost:9443](https://localhost:9443). The first time you access Portainer, the system asks to create a password for the admin user. Type the password twice and select the Create user button.

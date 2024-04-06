@@ -1,0 +1,16 @@
+version: '3'
+services:
+  helix-auth-svc:
+    image: perforce/helix-auth-svc:latest
+    container_name: helix-auth-svc
+    restart: unless-stopped
+    environment:
+      - SVC_BASE_URI=<YOUR_SVC_BASE_URI> # e.g https://<YOUR_SRV_IP>:3000/ 
+      - PROTOCOL=https
+      - DEBUG=no
+      - NODE_ENV=production
+      - OIDC_ISSUER_URI=<YOUR_ISSUER>
+      - OIDC_CLIENT_ID=<YOUR_CLIENT_ID>
+      - OIDC_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
+    ports:
+      - "3000:3000"

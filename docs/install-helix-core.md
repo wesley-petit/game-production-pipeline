@@ -2,21 +2,15 @@
 
 ## [Installation](https://aricodes.net/posts/perforce-server-with-docker/)
 
-1. Create folders that will contain all dockers and volumes data :
+1. Copy all files of the repository under `configuration/helix-core` in your server.
 
-   ```bash
-   mkdir -p /srv/dockers/helix-core /srv/dockers/helix-core/data
-   ```
-
-2. Copy all files of the repository under `configuration/helix-core` in the data folder.
-
-3. Install and Configure an helix-core server :
+2. Install and Configure an helix-core server :
 
    ```bash
    docker-compose run --rm helix.core /opt/perforce/sbin/configure-helix-p4d.sh
    ```
 
-4. In configuration steps, override some defaults values :
+3. In configuration steps, override some defaults values :
 
    | Parameter                            | Value             | Details                                                                                                                                                           |
    | ------------------------------------ | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -25,7 +19,7 @@
    | Perforce Server case-sensitive (y/n) | n                 | [Unreal Engine recommend running a case-insensitive Perforce server](https://docs.unrealengine.com/5.3/en-US/using-perforce-as-source-control-for-unreal-engine/) |
    | Perforce super-user login            | <YOUR_SUPER_USER> | Avoid generic name easily targeted (.g admin, super...)                                                                                                           |
 
-5. Launch your server :
+4. Launch your server :
 
    ```bash
    docker-compose up --build -d
