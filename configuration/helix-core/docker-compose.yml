@@ -7,7 +7,7 @@ services:
     container_name: helix-core
     restart: unless-stopped
     volumes:
-      - ./p4dctl.conf.d:/etc/perforce/p4dctl.conf.d
+      - ./data/p4dctl.conf.d:/etc/perforce/p4dctl.conf.d
       - ./data:/data
       - ./dbs:/dbs
     environment:
