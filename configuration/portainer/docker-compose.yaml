@@ -1,0 +1,15 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - 9443:9443
+    volumes:
+      - ./portainer_data:/data
+      # Bind the host’s Docker socket to manage the Docker installation it’s running within.
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "volume=portainer_data"
+    restart: unless-stopped
+volumes:
+  portainer_data:

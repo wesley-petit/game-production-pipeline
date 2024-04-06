@@ -36,7 +36,7 @@
 5. Install Docker :
 
    ```bash
-   sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin  docker-compose docker-compose-plugin -y
+   sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose docker-compose-plugin -y
    ```
 
 6. Verify that the installation is successful :
@@ -47,16 +47,12 @@
 
 ### Portainer
 
-1. Create a Docker Volume :
+1. Copy the `configuration/portainer/docker-compose.yml` in your server.
+
+2. Install Portainer :
 
    ```bash
-   docker volume create portainer_data
-   ```
-
-2. Install Portainer Server :
-
-   ```bash
-   docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+   docker compose up -d
    ```
 
 3. Access Portainer Dashboard with the following address: [https://localhost:9443](https://localhost:9443). The first time you access Portainer, the system asks to create a password for the admin user. Type the password twice and select the Create user button.
