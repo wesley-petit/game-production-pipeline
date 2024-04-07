@@ -109,8 +109,8 @@ It has 3 main pane :
 | Check out         | git add    | To designate one or more files, or a stream, for edit.                                                                        |
 | Stream            | git branch | A "branch" with built-in rules that determines what changes should be propagated and in what order they should be propagated. |
 | Get Latest / Sync | git pull   | To copy a file revision (or set of file revisions) from the Helix server depot to a client workspace.                         |
-| Submit            | git push   | To send a pending changelist into the Helix server depot for processing.                                                      |
-| Changelist        | commit     | A list of files, their version numbers, the changes made to the files, and a description of the changes made.                 |
+| Submit            | git push   | To send a pending change list into the Helix server depot for processing.                                                     |
+| Change list       | commit     | A list of files, their version numbers, the changes made to the files, and a description of the changes made.                 |
 | Revision          | NA         | File version.                                                                                                                 |
 | Revert            | git revert | To discard the changes you have made to a file in the client workspace before a submit.                                       |
 | Shelve            | git stash  | The process of temporarily storing files in the Helix server without checking in a changelist.                                |

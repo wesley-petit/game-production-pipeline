@@ -33,5 +33,10 @@ p4 configure set dm.info.hide=1
 # Hide user details from unauthenticated users.
 p4 configure set run.users.authorize=1
 
-# Hide information contained in 'keys' from those who lack admin access. One use case is Hiding Swarm storage from regular users.
+# Hide information contained in 'keys' from those who lack admin access.
+# One use case is Hiding Swarm storage from regular users : https://www.perforce.com/manuals/swarm/Content/Swarm/setup.post.html#setup-post_dm_keys
 p4 configure set dm.keys.hide=2
+
+# Allow Swarm to bypass lock and work with 'exclusive open' files :
+# https://www.perforce.com/manuals/swarm/Content/Swarm/setup.post.html#setup-post_exclusive_locks
+p4 configure set filetype.bypasslock=1

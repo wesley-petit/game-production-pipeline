@@ -10,6 +10,7 @@ For our pipeline, we will install several services :
 
 - **Helix Core** : Version control and collaboration platform widely used for managing source code and digital assets.
 - **Helix Authentication Service** : Provides authentication and authorization services for securing access to Perforce applications.
+- **Helix Swarm** : Code review and collaboration platform integrated with Helix Core.
 - **Portainer** : User-friendly Docker container management tool with a web-based interface.
 
 ## Installation
@@ -17,6 +18,7 @@ For our pipeline, we will install several services :
 1. Follow [Docker and Portainer installation guide](docs/install-docker.md).
 2. Follow [Helix Core installation guide](docs/install-helix-core.md).
 3. Follow [Helix Authentication installation guide](docs/install-helix-authentication-service.md).
+4. Follow [Helix Swarm installation guide](docs/install-helix-swarm.md).
 
 ## License
 
