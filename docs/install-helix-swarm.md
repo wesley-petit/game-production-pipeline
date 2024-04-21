@@ -2,37 +2,79 @@
 
 ## [Installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Run_Swarm_using_a_Docker_container)
 
-:warning: In Helix Swarm official documentation, they require to ["not prefix group names, project names, user names, or client-names with "swarm-", this is a reserved term used by Swarm. Prefixing a name with "swarm-" will result in unexpected and unwanted behavior in Swarm"](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/chapter.setup.html).
+:warning: [In Helix Swarm official documentation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/chapter.setup.html), they require to "not prefix group names, project names, user names, or client-names with "swarm-", this is a reserved term used by Swarm. Prefixing a name with "swarm-" will result in unexpected and unwanted behavior in Swarm".
 
-1. Copy the `configuration/helix-swarm/docker-compose.yml` in your server.
+1. Copy the `docker-compose.yaml` file in your server and change the [Helix Swarm settings](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Advanced_configuration_options) containing `YOUR_` with your configuration :
 
-2. In the `docker-compose.yml`, change the [Helix Swarm settings](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Advanced_configuration_options) with your configuration :
+   ```yaml
+   version: '3'
 
-   ```yml
-   - P4D_PORT=<YOUR_P4PORT> # e.g. ssl:192.168.1.10:1666
-   
-   # Superuser and swarm user must not use the Helix Authentication Service :
-   # https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.dependencies.html#Helix_Core_Server_automated_user_requirements_for_Swarm
-   - P4D_SUPER=<YOUR_SUPER_USER>
-   - P4D_SUPER_PASSWD=<YOUR_SUPER_USER_PWD>
-   - SWARM_USER=<YOUR_SWARM_SUPER_USER>
-   - SWARM_PASSWD=<YOUR_SWARM_SUPER_USER_PWD>
+   services:
+      helix-swarm:
+         image: perforce/helix-swarm
+         hostname: helix-swarm
+         container_name: helix-swarm
+         domainname: helix-swarm
+         restart: unless-stopped
+         volumes:
+            - ./data/helix-swarm:/opt/perforce/swarm/data
+            - ./data/www:/var/www
+            - ./data/www/html:/var/www/html
+         environment:
+            - P4D_PORT=<YOUR_P4PORT> # e.g. ssl:192.168.1.10:1666
+            
+            # Superuser and swarm user must not use the Helix Authentication Service :
+            # https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.dependencies.html#Helix_Core_Server_automated_user_requirements_for_Swarm
+            - P4D_SUPER=<YOUR_SUPER_USER>
+            - P4D_SUPER_PASSWD=<YOUR_SUPER_USER_PWD>
+            - SWARM_USER=<YOUR_SWARM_SUPER_USER>
+            - SWARM_PASSWD=<YOUR_SWARM_SUPER_USER_PWD>
 
-   # Your server ip / host name to be accessible by Helix Core server (e.g 192.168.1.101).
-   - SWARM_HOST=<YOUR_SWARM_HOSTNAME>
+            # Your server ip / host name to be accessible by Helix Core server (e.g 192.168.1.101).
+            - SWARM_HOST=<YOUR_SWARM_HOSTNAME>
+
+            # If set to 'y', then extensions will be installed even if they already
+            # exist, overwriting existing configuration.
+            - SWARM_FORCE_EXT=y
+         ports:
+            - 80:80
+            - 443:443
+         working_dir: /opt/perforce/swarm
+         depends_on:
+            - helix-redis
+         tty: false
+         # networks:
+         #    - nginx-proxy
+
+      helix-redis:
+         image: greenbone/redis-server
+         hostname: helix-redis
+         container_name: helix-redis
+         domainname: helix-swarm
+         restart: unless-stopped
+         user: root
+         command: redis-server --protected-mode no --port 7379 --appendonly yes
+         volumes:
+            - ./data/redis:/data
+         # networks:
+         #    - nginx-proxy
+
+   # networks:
+   #    nginx-proxy:
+   #       external: true
    ```
 
    :warning: [If Helix Authentication Service is configured for your Helix Core Server, the user account running Swarm must not use the Helix Authentication Service](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.dependencies.html#Helix_Core_Server_automated_user_requirements_for_Swarm).
 
-  As Perforce mentioned in their website, [Redis will write its cache to disc, and to preserve it between restarts](https://github.com/perforce/helix-swarm-docker/tree/main?tab=readme-ov-file#persisting-containers-production). And Swarm log files, the worker queue, tokens and workspaces will also be preserved in their volume.
+   As Perforce mentioned in their website, [Redis will write its cache to disc, and to preserve it between restarts](https://github.com/perforce/helix-swarm-docker/tree/main?tab=readme-ov-file#persisting-containers-production). And Swarm log files, the worker queue, tokens and workspaces will also be preserved in their volume.
 
-3. Launch your container :
+2. Launch your container :
 
    ```bash
-   docker-compose up --build -d
+   sudo docker-compose up --build -d
    ```
 
-4. Follow the official documentation to [validate your Swarm installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.validate_install.html#Validate_your_Swarm_installation).
+3. Follow the official documentation to [validate your Swarm installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.validate_install.html#Validate_your_Swarm_installation).
 
 ## Configuration
 
@@ -62,9 +104,9 @@
     ),
    ```
 
-### Recommanded review settings
+### Recommended review settings
 
-1. In Portainer, open a console in Helix Swarm container
+1. In Portainer, open a console in Helix Swarm container.
 
 2. Add a new section in the configuration file (`/opt/perforce/swarm/data/config.php`) :
 
