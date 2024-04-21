@@ -22,13 +22,13 @@
 
    ```bash
    echo \
-   "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-   
-   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
    ```
 
 4. Update system :
+
    ```bash
    sudo apt update
    ```
@@ -47,12 +47,36 @@
 
 ### Portainer
 
-1. Copy the `configuration/portainer/docker-compose.yml` in your server.
+1. Copy the `docker-compose.yaml` file in your server :
+
+   ```yaml
+   version: '3'
+
+   services:
+      portainer:
+         image: portainer/portainer-ce:latest
+         container_name: portainer
+         ports:
+            - 9443:9443
+         #networks:
+         #   - nginx-proxy
+         volumes:
+            - ./data:/data
+            # Bind the host’s Docker socket to manage the Docker installation it’s running within.
+            - /var/run/docker.sock:/var/run/docker.sock
+         restart: unless-stopped
+         #networks:
+         #   - nginx-proxy
+
+   # networks:
+   #   nginx-proxy:
+   #     external: true
+   ```
 
 2. Install Portainer :
 
    ```bash
-   docker-compose up --build -d
+   sudo docker-compose up --build -d
    ```
 
 3. Access Portainer Dashboard with the following address: [https://localhost:9443](https://localhost:9443). The first time you access Portainer, the system asks to create a password for the admin user. Type the password twice and select the Create user button.

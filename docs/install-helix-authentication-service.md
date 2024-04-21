@@ -2,7 +2,33 @@
 
 ## [Installation](https://hub.docker.com/r/perforce/helix-auth-svc)
 
-1. Copy all files of the repository under `configuration/helix-authentication-service` in your server.
+1. Copy the `docker-compose.yaml` file in your server :
+
+   ```yaml
+   version: '3'
+
+   services:
+      helix-auth-svc:
+         image: perforce/helix-auth-svc:latest
+         container_name: helix-auth-svc
+         restart: unless-stopped
+         environment:
+            - SVC_BASE_URI=<YOUR_SVC_BASE_URI> # e.g https://<YOUR_SRV_IP>:3000/ 
+            - PROTOCOL=https
+            - DEBUG=no
+            - NODE_ENV=production
+            - OIDC_ISSUER_URI=<YOUR_ISSUER>
+            - OIDC_CLIENT_ID=<YOUR_CLIENT_ID>
+            - OIDC_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
+         ports:
+            - "3000:3000"
+         #networks:
+         #   - nginx-proxy
+
+   # networks:
+   #   nginx-proxy:
+   #     external: true
+   ```
 
 2. In docker-compose.yaml file, change the SVC_BASE_URI to your service url (e.g https://<YOUR_SRV_IP>:3000/).
    You can also add extra [Helix Authentication settings](https://www.perforce.com/manuals/helix-auth-svc/Content/HAS/configuring-has.html#Configuring_Helix_Authentication_Service) depending on your need.  
@@ -27,7 +53,7 @@
 
 8. In docker-compose.yaml file, update the following variables :
 
-   ```yml
+   ```yaml
    OIDC_ISSUER_URI: "<YOUR_ISSUER>"
    OIDC_CLIENT_ID: "<YOUR_CLIENT_ID>"
    OIDC_CLIENT_SECRET: "<YOUR_CLIENT_SECRET>"
@@ -36,7 +62,7 @@
 9. Launch the service :
 
    ```bash
-   docker-compose up --build -d
+   sudo docker-compose up --build -d
    ```
 
    Now we will the link it with Helix core server.

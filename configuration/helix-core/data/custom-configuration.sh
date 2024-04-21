@@ -1,4 +1,7 @@
-p4 set P4USER=<YOUR_SUPER_USER>
+echo "Please enter your super user name :"
+read superuser
+
+p4 set P4USER=$superuser
 export P4PORT=ssl:1666
 export P4EDITOR=nano
 

@@ -7,7 +7,7 @@
 2. Install and Configure an helix-core server :
 
    ```bash
-   docker-compose run --rm helix.core /opt/perforce/sbin/configure-helix-p4d.sh
+   sudo docker-compose run --rm helix.core /opt/perforce/sbin/configure-helix-p4d.sh
    ```
 
 3. In configuration steps, override some defaults values :
@@ -22,28 +22,20 @@
 4. Launch your server :
 
    ```bash
-   docker-compose up --build -d
+   sudo docker-compose up --build -d
    ```
 
 ## Configuration
 
 1. In Portainer, open a console in the Helix Core container.
 
-2. Change the superuser name in `custom-configuration.sh` :
-
-   ```bash
-   nano /data/custom-configuration.sh
-   ```
-
-   These script apply [Helix Core recommended security settings](https://www.perforce.com/manuals/p4sag/Content/P4SAG/chapter.security.html) and configure [Typemaps](https://www.perforce.com/manuals/v21.1/cmdref/Content/CmdRef/p4_typemap.html) for Unreal using the `typemaps.conf` file in the data folder. For more information, visit [Helix Core configurable list](https://www.perforce.com/manuals/cmdref/Content/CmdRef/configurables.alphabetical.html).
-
-3. Now run the script.
+2. Now run the script to apply [Helix Core recommended security settings](https://www.perforce.com/manuals/p4sag/Content/P4SAG/chapter.security.html) and configure [Typemaps](https://www.perforce.com/manuals/v21.1/cmdref/Content/CmdRef/p4_typemap.html) for Unreal using the `typemaps.conf` file in the data folder. For more information, visit [Helix Core configurable list](https://www.perforce.com/manuals/cmdref/Content/CmdRef/configurables.alphabetical.html).
 
    ```bash
    . /data/custom-configuration.sh
    ```
 
-4. Restart your Helix Core server and your are done.
+3. Restart your Helix Core server and your are done.
 
    ```bash
    p4 admin restart
