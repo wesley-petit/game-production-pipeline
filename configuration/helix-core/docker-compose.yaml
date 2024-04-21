@@ -16,3 +16,9 @@ services:
       - P4ROOT=/data
     ports:
       - 1666:1666
+    # networks:
+      # - nginx-proxy
+
+# networks:
+#   nginx-proxy:
+#     external: true
