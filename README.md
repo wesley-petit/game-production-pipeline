@@ -8,6 +8,8 @@ This is a summary of the documentation for installing and configuring a pipeline
 
 For our pipeline, we will install several services :
 
+- **Portainer** : User-friendly Docker container management tool with a web-based interface.
+- **Nginx Proxy Manager** : User-friendly interface to expose your services easily and securely.
 - **Helix Core** : Version control and collaboration platform widely used for managing source code and digital assets.
 - **Helix Authentication Service** : Provides authentication and authorization services for securing access to Perforce applications.
 - **Helix Swarm** : Code review and collaboration platform integrated with Helix Core.
@@ -16,9 +18,9 @@ For our pipeline, we will install several services :
 ## Installation
 
 1. Follow [Docker and Portainer installation guide](docs/install-docker.md).
-2. Follow [Helix Core installation guide](docs/install-helix-core.md).
-3. Follow [Helix Authentication installation guide](docs/install-helix-authentication-service.md).
-4. Follow [Helix Swarm installation guide](docs/install-helix-swarm.md).
+2. (Optional) Follow the [Nginx Proxy Manager installation guide](docs/install-nginx-proxy-manager.md) if you want to enhances security and reliability of the web server (force https, authentication on admin website...).
+3. Follow [Helix Core installation guide](docs/install-helix-core.md).
+4. Follow [Helix Authentication installation guide](docs/install-helix-authentication-service.md).
 
 ## License
 
