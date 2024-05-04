@@ -26,7 +26,7 @@ This section has for goal to install services for server monitoring (disk usage.
    docker compose up -d
    ```
 
-   Docker compose will use two volumes to keep datas and logs persistent even if a container stop or restart.
+   Docker compose will use two volumes to keep data and logs persistent even if a container stop or restart.
 
 5. Go to http://<YOUR_SRV_IP>:4000/.
 

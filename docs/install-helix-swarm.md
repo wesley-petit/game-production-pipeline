@@ -30,7 +30,8 @@
             - SWARM_USER=<YOUR_SWARM_SUPER_USER>
             - SWARM_PASSWD=<YOUR_SWARM_SUPER_USER_PWD>
 
-            # Your server ip / host name to be accessible by Helix Core server (e.g 192.168.1.101).
+            # Your server ip / host name to be accessible by Helix Core server (e.g 192.168.1.101 or helix-swarm)
+            # and by your users.
             - SWARM_HOST=<YOUR_SWARM_HOSTNAME>
 
             # If set to 'y', then extensions will be installed even if they already
@@ -48,9 +49,7 @@
 
       helix-redis:
          image: greenbone/redis-server
-         hostname: helix-redis
          container_name: helix-redis
-         domainname: helix-swarm
          restart: unless-stopped
          user: root
          command: redis-server --protected-mode no --port 7379 --appendonly yes

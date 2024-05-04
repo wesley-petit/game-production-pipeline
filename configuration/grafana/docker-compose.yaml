@@ -1,9 +1,5 @@
 version: '3.8'
 
-volumes:
-  storage: {}
-  logs: {}
-
 services:
   grafana:
     image: grafana/grafana-enterprise
@@ -12,5 +8,5 @@ services:
     ports:
       - '4000:3000'
     volumes:
-      - storage:/var/lib/grafana
-      - logs:/var/log/grafana
+      - ./storage:/var/lib/grafana
+      - ./logs:/var/log/grafana
