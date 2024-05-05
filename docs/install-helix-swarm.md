@@ -4,7 +4,9 @@
 
 :warning: [In Helix Swarm official documentation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/chapter.setup.html), they require to "not prefix group names, project names, user names, or client-names with "swarm-", this is a reserved term used by Swarm. Prefixing a name with "swarm-" will result in unexpected and unwanted behavior in Swarm".
 
-1. Copy the `docker-compose.yaml` file in your server and change the [Helix Swarm settings](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Advanced_configuration_options) containing `YOUR_` with your configuration :
+1. [From the official documentation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.dependencies.html#Helix_Core_Server_automated_user_requirements_for_Swarm), Swarm requires an automated user with at least admin privileges in the Helix Core Server to enable Swarm to run against the Helix Core Server. For this, create a perforce group, sets the `Duration before login sessions times out` to unlimited and add your swarm user. Now you Helix Swarm could use a [long-lived login ticket](https://www.perforce.com/manuals/p4sag/Content/P4SAG/superuser.basic.auth.tickets.html).
+
+2. Copy the `docker-compose.yaml` file in your server and change the [Helix Swarm settings](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Advanced_configuration_options) containing `YOUR_` with your configuration :
 
    ```yaml
    version: '3'
@@ -67,13 +69,13 @@
 
    As Perforce mentioned in their website, [Redis will write its cache to disc, and to preserve it between restarts](https://github.com/perforce/helix-swarm-docker/tree/main?tab=readme-ov-file#persisting-containers-production). And Swarm log files, the worker queue, tokens and workspaces will also be preserved in their volume.
 
-2. Launch your container :
+3. Launch your container :
 
    ```bash
    sudo docker-compose up --build -d
    ```
 
-3. Follow the official documentation to [validate your Swarm installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.validate_install.html#Validate_your_Swarm_installation).
+4. Follow the official documentation to [validate your Swarm installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.validate_install.html#Validate_your_Swarm_installation).
 
 ## Configuration
 
@@ -139,6 +141,7 @@
 
 - [Helix Swarm docker usage](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Run_Swarm_using_a_Docker_container)
 - [Helix Swarm restrictions on "swarm-" prefix](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/chapter.setup.html)
+- [Ticket-based authentication](https://www.perforce.com/manuals/p4sag/Content/P4SAG/superuser.basic.auth.tickets.html)
 - [Helix Swarm environment settings](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Advanced_configuration_options)
 - [Helix Swarm user limitation with Helix Authentication Service](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.dependencies.html#Helix_Core_Server_automated_user_requirements_for_Swarm)
 - [Helix Swarm docker GitHub](https://github.com/perforce/helix-swarm-docker)
