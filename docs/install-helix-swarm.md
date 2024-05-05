@@ -137,6 +137,54 @@
 
     :info: You can find other configurable in [Helix Swarm Guide](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.reviews.html#Reviews).
 
+### [Apache Security](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.security.html#Apache_security)
+
+1. Open a terminal in your helix-swarm container.
+
+   ```bash
+   sudo docker exec -it helix-swarm /bin/bash
+   ```
+
+2. Edit your apache2 configuration file.
+
+   ```bash
+   nano /etc/apache2/apache2.conf
+   ```
+
+3. Add these lines to the end of the file :
+
+   ```conf
+   # Apply Helix security settings :
+   # https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.security.html#Apache_security
+
+   # Disable Apache identification (version, installed modules...)
+   ServerSignature Off
+   ServerTokens ProductOnly
+
+   # Disable trace requests that may disclose cookie information
+   TraceEnable off
+   ```
+
+4. Now, edit the ssl modules.
+
+   ```bash
+   nano /etc/apache2/mods-available/ssl.conf
+   ```
+
+5. Add or modify the following parameters :
+
+   ```conf
+   SSLHonorCipherOrder On
+   SSLCipherSuite ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:RC4:HIGH:!MD5:!aNULL:!EDH
+   SSLCompression Off
+   ```
+
+6. Restart your apache2 server.
+
+   ```bash
+   apachectl restart
+   ```
+
 ## References
 
 - [Helix Swarm docker usage](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Run_Swarm_using_a_Docker_container)
@@ -151,3 +199,4 @@
 - [SSO configuration](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.swarm.html)
 - [Review configurable](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.reviews.html#Reviews)
 - [Review cleanup](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.review_cleanup.html#Review_cleanup)
+- [Apache Security configuration](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.security.html#Apache_security)
