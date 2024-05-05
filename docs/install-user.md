@@ -86,8 +86,6 @@ It has 3 main pane :
 
 1. In Unreal Engine, right click on the `Content` folder
 
-# TODO show sync on a folder
-
 ### Submit a changelist
 
 1. Create a new Blueprint and save it. A green sum sign appear on the new Blueprint meaning it's mark for add.
