@@ -2,7 +2,7 @@
 
 In this guide, we explain how to install and configure Helix Core. Unlike Git, Helix Core provides robust version control specifically tailored for handling large binary assets common in game development, ensuring efficient collaboration and seamless integration with industry-standard tools.
 
-:information_source: We also provide [user documentation](install-user.md) for installing P4V and using your Helix Core server.
+:information_source: We also provide an [user documentation](install-user.md) to install P4V and use your Helix Core server.
 
 ## [Installation](https://aricodes.net/posts/perforce-server-with-docker/)
 

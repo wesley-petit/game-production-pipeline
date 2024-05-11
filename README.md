@@ -1,4 +1,4 @@
-# Game pipeline
+# Game production pipeline
 
 Documentation hub to install and configure a game development pipeline (versioning, authentication, automatic build...) on self-host infrastructure.
 
@@ -24,10 +24,26 @@ For our pipeline, we will install several services :
 - **Node Exporter** : Prometheus exporter that collects system-level metrics from Linux/Unix hosts, providing valuable insights into CPU, memory, disk, and network usage.
 - **Jenkins** : Open-source automation server used for building, testing, and deploying software with support for continuous integration and delivery.
 
+## Screenshots
+
+<p>
+  <img src="assets/portainer-interface.PNG" alt="Portainer Interface" width="49.5%">
+  <img src="assets/p4v-interface.webp" alt="P4V Interface" width="49.5%">
+</p>
+
+<p>
+  <img src="assets/helix-swarm-interface.png" alt="Helix Swarm Web Page" width="49.5%">
+  <img src="assets/grafana-interface.png" alt="Grafana Metrics Dashboard" width="49.5%">
+</p>
+
+<p>
+  <img src="assets/nginx-proxy-manager-interface.PNG" alt="Nginx Proxy Manager Web Page" width="49.5%">
+</p>
+
 ## Installation
 
 1. Follow [Docker and Portainer installation guide](docs/install-docker.md).
-2. (Optional) If you want to enhances security and reliability of the web server (force https, authentication on admin website...), follow the [Nginx Proxy Manager installation guide](docs/install-nginx-proxy-manager.md).
+2. (Optional) If you want to enhances security and reliability of the web server (force https, authentication on admin website...), follow the [Nginx Proxy Manager installation guide](docs/install-nginx-proxy-manager-interface.md).
 3. Follow [Helix Core installation guide](docs/install-helix-core.md).
 4. Follow [Helix Authentication installation guide](docs/install-helix-authentication-service.md).
 5. Follow [Helix Swarm installation guide](docs/install-helix-swarm.md).
