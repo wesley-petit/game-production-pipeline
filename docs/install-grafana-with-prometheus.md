@@ -4,11 +4,10 @@
 
 In this guide, we explain how to install and configure a metrics dashboard on a server. Here is the expected result :
 
-<p>
-   <a href="./assets/grafana/home-page.png"><img src="./img/3Dtiles.png" alt="Grafana dashboard" width="32.5%" max-width="100%" margin="auto" display="block" ></a>
+<p style="width:70%; margin:auto; text-align:center;">
+   <img src="./assets/grafana/home-page.png" alt="Grafana dashboard">
+   <figcaption style="text-align:center;">Owned by <a href="https://grafana.com/grafana/dashboards/1860-node-exporter-full/">Grafana</a>.</figcaption>
 </p>
-
-<figcaption>Owned by [Grafana](https://grafana.com/grafana/dashboards/1860-node-exporter-full/)</figcaption>
 
 ## Installation
 
