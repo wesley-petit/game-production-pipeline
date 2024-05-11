@@ -1,6 +1,12 @@
 # Perforce User guide for Unreal Engine
 
-![Helix Core concepts](assets/helix-core/0-helix-concept.PNG)
+In these guide we will install P4V to communicate with your Helix Core server.
+
+<p align="center"><img width="60%" src="assets/helix-core/home-page.webp" alt="P4V interface"></p>
+
+## Concepts
+
+<p align="center"><img width="50%" src="assets/helix-core/0-helix-concept.PNG" alt="Helix Core concepts"></p>
 
 ## Installation
 
@@ -12,19 +18,19 @@
 
 3. Enter your username which is the first letter of your first name, and your full last name (for example, if your name is John Doe, il will be jdoe).
 
-   ![Login window](assets/helix-core/1-login.PNG)
+   <p align="center"><img width="50%" src="assets/helix-core/1-login.PNG" alt="Login window"></p>
 
 4. Click on OK, then this prompt will appear :
 
-   ![Unicode selection window](assets/helix-core/2-unicode.PNG)
+   <p align="center"><img width="40%" src="assets/helix-core/2-unicode.PNG" alt="Unicode selection window"></p>
 
    Choose `Unicode (UTF-8)` then valid.
 
-6. A Window or a web page will be displayed, enter your credentials (email and password).
+5. A Window or a web page will be displayed, enter your credentials (email and password).
 
-7. Now, you can see P4V interface.
+6. Now, you can see P4V interface.
 
-   ![P4V Interfaces](assets/helix-core/3-p4v-interface.PNG)
+   <p align="center"><img width="70%" src="assets/helix-core/3-p4v-interface.PNG" alt="P4V Interfaces"></p>
 
 It has 3 main pane :
 
@@ -43,11 +49,11 @@ It has 3 main pane :
 3. Choose the folder on which the files will be put in workspace root.
 4. For the stream, select Browse and pick //<YOUR_PROJECT_NAME>/main.
 
-   ![Create a Workspace](assets/helix-core/4-workspace-creation.PNG)
+   <p align="center"><img width="50%" src="assets/helix-core/4-workspace-creation.PNG" alt="Create a Workspace"></p>
 
 5. Go to Advanced, enable `Rmdir` and select `Revert unchanged files` in `On submit` dropdown.
 
-   ![Configure Workspace](assets/helix-core/5-workspace-settings.PNG)
+   <p align="center"><img width="50%" src="assets/helix-core/5-workspace-settings.PNG" alt="Configure Workspace"></p>
 
 6. Press OK.
 7. On the left pane, click on `Workspace` tab and select the folder. Then, click of the big `Get Latest` button on the top toolbar.
@@ -90,11 +96,11 @@ It has 3 main pane :
 
 1. Create a new Blueprint and save it. A green sum sign appear on the new Blueprint meaning it's mark for add.
 
-   ![Mark for add icon](assets/helix-core/6-mark-for-add.PNG)
+   <p align="center"><img width="10%" src="assets/helix-core/6-mark-for-add.PNG" alt="Mark for add icon"></p>
 
 2. At the bottom right corner, click on Revision Control > Submit Content. This window will be displayed :
 
-   ![Submit content](assets/helix-core/7-submit-content.PNG)
+   <p align="center"><img width="60%" src="assets/helix-core/7-submit-content.PNG" alt="Submit content"></p>
 
 3. After setting a description, you just need to click on `Submit`.
 

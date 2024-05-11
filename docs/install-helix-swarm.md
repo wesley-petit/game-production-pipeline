@@ -1,5 +1,9 @@
 # Helix Swarm installation guide
 
+In this guide, we explain how to install and configure Helix Swarm to review your colleagues changes.
+
+<p align="center"><img width="70%" src="./assets/helix-swarm/home-page.png" alt="Helix Swarm review page"></p>
+
 ## [Installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Run_Swarm_using_a_Docker_container)
 
 :warning: [In Helix Swarm official documentation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/chapter.setup.html), they require to "not prefix group names, project names, user names, or client-names with "swarm-", this is a reserved term used by Swarm. Prefixing a name with "swarm-" will result in unexpected and unwanted behavior in Swarm".

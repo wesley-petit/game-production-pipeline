@@ -1,5 +1,8 @@
 # Docker and Portainer installation guide
 
+In this guide, we explain how to install Docker and Portainer.
+<p align="center"><img width="70%" src="assets/portainer/home-page.png" alt="Portainer Dashboard"></p>
+
 ## Installation
 
 ### [Docker](https://docs.docker.com/engine/install/debian/#install-using-the-repository)

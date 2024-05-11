@@ -1,5 +1,7 @@
 # Nginx proxy manager installation guide
 
+In this guide, we explain how to install and configure a reverse proxy (force https, automatically renew your certificate...).
+
 ## Install
 
 1. Copy this `docker-compose.yaml` file in your server :

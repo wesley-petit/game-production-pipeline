@@ -4,10 +4,8 @@
 
 In this guide, we explain how to install and configure a metrics dashboard on a server.
 
-
 Here is the expected result from [Grafana website](https://grafana.com/grafana/dashboards/1860-node-exporter-full/") :
-
-![Grafana Dashboard](assets/grafana/home-page.png)
+<p align="center"><img width="70%" src="assets/grafana/home-page.png" alt="Grafana Swarm Dashboard"></p>
 
 ## Installation
 

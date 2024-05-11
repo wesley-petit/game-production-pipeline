@@ -1,5 +1,7 @@
 # Helix Authentication Service installation guide
 
+In this guide, we install and configure the Helix authentication service, which enables a user to access multiple applications or services with a single set of login credentials (aka *SSO* or Single Sign-On).
+
 ## [Installation](https://hub.docker.com/r/perforce/helix-auth-svc)
 
 1. Copy the `docker-compose.yaml` file in your server :
@@ -36,6 +38,8 @@
    Now, we need to link Helix Authentication to an Identity Provider.
 
 ### [Configure an Identity Provider](https://www.perforce.com/manuals/helix-auth-svc/Content/HAS/example-configs.html#Example_Identity_Provider_configurations)
+
+We use Auth0, because it proposes a free tier without credit card that is limited to 7500 active user.
 
 1. Create an account on [Auth0](https://auth0.com/signup?signUpData=%7B%22category%22%3A%22button%22%7D), it will unify authentication for Helix and other services. Complete all steps depending on your location.
 
