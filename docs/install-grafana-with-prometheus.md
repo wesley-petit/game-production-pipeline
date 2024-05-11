@@ -142,7 +142,8 @@ This section has for goal to install services for server monitoring (disk usage.
    ```
 
 6. Go to http://<YOUR_SRV_IP>:<PROMETHEUS_PORT>/ and you will see this interface :
-   ![Prometheus interface](assets/prometheus/0-prometheus-interface.PNG)
+   <p align="center"><img width="70%" src="assets/prometheus/0-prometheus-interface.PNG" alt="Prometheus interface"></p>
+
 
 ## Configuration
 
@@ -151,16 +152,16 @@ This section has for goal to install services for server monitoring (disk usage.
 2. Click on `Add data sources` and search for Prometheus.
 
 3. Now, you only have to set your prometheus url in the following interface then click on `Save & Test`.
-   ![Prometheus data source configuration](assets/grafana/0-add-prometheus-source.PNG)
+   <p align="center"><img width="70%" src="assets/grafana/0-add-prometheus-source.PNG" alt="Prometheus data source configuration"></p>
 
 4. Go back to the home page and click on `Dashboards > Create a Dashboard > Import dashboard`.
 
 5. Load the dashboard 1860, it's the [Node Exporter Full Dashboard](https://grafana.com/grafana/dashboards/1860-node-exporter-full/).
    You can find more dashboard in [Grafana website](https://grafana.com/grafana/dashboards/).
-   ![Prometheus data source configuration](assets/grafana/1-add-prometheus-dashboard.PNG)
+   <p align="center"><img width="60%" src="assets/grafana/1-add-prometheus-dashboard.PNG" alt="Prometheus data source configuration"></p>
 
 6. Now, select your Prometheus source then click on `Import`.
-   ![Add Prometheus data source in a Grafana dashboard](assets/grafana/2-add-prometheus-source-in-dashboard.PNG)
+   <p align="center"><img width="40%" src="assets/grafana/2-add-prometheus-source-in-dashboard.PNG" alt="Add Prometheus data source in a Grafana dashboard"></p>
 
 ## References
 
