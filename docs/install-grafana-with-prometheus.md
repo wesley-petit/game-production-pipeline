@@ -2,12 +2,12 @@
 
 ## Introduction
 
-In this guide, we explain how to install and configure a metrics dashboard on a server. Here is the expected result :
+In this guide, we explain how to install and configure a metrics dashboard on a server.
 
-<p style="width:70%; margin:auto; text-align:center;">
-   <img src="./assets/grafana/home-page.png" alt="Grafana dashboard">
-   <figcaption style="text-align:center;">Owned by <a href="https://grafana.com/grafana/dashboards/1860-node-exporter-full/">Grafana</a>.</figcaption>
-</p>
+
+Here is the expected result from [Grafana website](https://grafana.com/grafana/dashboards/1860-node-exporter-full/") :
+
+![Grafana Dashboard](assets/grafana/home-page.png)
 
 ## Installation
 
