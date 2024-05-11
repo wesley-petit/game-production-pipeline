@@ -27,7 +27,7 @@ For our pipeline, we will install several services :
 ## Screenshots
 
 <p>
-  <img src="assets/portainer-interface.PNG" alt="Portainer Interface" width="49.5%">
+  <img src="assets/portainer-interface.png" alt="Portainer Interface" width="49.5%">
   <img src="assets/p4v-interface.webp" alt="P4V Interface" width="49.5%">
 </p>
 
@@ -37,7 +37,7 @@ For our pipeline, we will install several services :
 </p>
 
 <p>
-  <img src="assets/nginx-proxy-manager-interface.PNG" alt="Nginx Proxy Manager Web Page" width="49.5%">
+  <img src="assets/nginx-proxy-manager-interface.png" alt="Nginx Proxy Manager Web Page" width="49.5%">
 </p>
 
 ## Installation
