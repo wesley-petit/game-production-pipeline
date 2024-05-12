@@ -1,6 +1,29 @@
 # Perforce User guide for Unreal Engine
 
-In these guide we will install P4V to use your Helix Core server.
+- [Perforce User guide for Unreal Engine](#perforce-user-guide-for-unreal-engine)
+  - [Concepts](#concepts)
+  - [Installation](#installation)
+    - [P4V Client](#p4v-client)
+    - [Get the project](#get-the-project)
+  - [Configuration](#configuration)
+    - [Configuration with Unreal Engine](#configuration-with-unreal-engine)
+  - [Usage](#usage)
+    - [P4V](#p4v)
+      - [Create a changelist](#create-a-changelist)
+      - [Create a review](#create-a-review)
+      - [Submit a changelist](#submit-a-changelist)
+      - [Shelve](#shelve)
+      - [Unshelve](#unshelve)
+      - [Create a stream](#create-a-stream)
+      - [Retrieve a stream](#retrieve-a-stream)
+    - [Unreal Engine](#unreal-engine)
+      - [Create a changelist](#create-a-changelist-1)
+      - [Submit a changelist](#submit-a-changelist-1)
+      - [Review a changelist](#review-a-changelist)
+  - [Glossary](#glossary)
+  - [References](#references)
+
+In these guide we will install P4V and configure Unreal Engine to use your Helix Core server.
 
 <p align="center"><img width="60%" src="assets/helix-core/home-page.webp" alt="P4V interface"></p>
 
@@ -10,61 +33,41 @@ In these guide we will install P4V to use your Helix Core server.
 
 ## Installation
 
-### P4V
+### P4V Client
 
 1. Download and install [P4V](https://www.perforce.com/downloads/helix-visual-client-p4v).
 
-2. In P4V, enter the address given by your Helix Core Server administrator in the Server label.
+2. In P4V, enter the address and the username given by your Helix Core Server administrator.
 
-3. Enter your username which is the first letter of your first name, and your full last name (for example, if your name is John Doe, il will be jdoe).
+    <p align="center"><img width="50%" src="assets/helix-core/1-login.PNG" alt="Login window"></p>
 
-   <p align="center"><img width="50%" src="assets/helix-core/1-login.PNG" alt="Login window"></p>
+3. Click on OK, then this prompt will appear :
 
-4. Click on OK, then this prompt will appear :
-
-   <p align="center"><img width="40%" src="assets/helix-core/2-unicode.PNG" alt="Unicode selection window"></p>
+    <p align="center"><img width="40%" src="assets/helix-core/2-unicode.PNG" alt="Unicode selection window"></p>
 
    Choose `Unicode (UTF-8)` then valid.
 
-5. A Window or a web page will be displayed, enter your credentials (email and password).
+4. If a window appear, enter your password. Else, click on `Sign Up` and enter your credentials.
 
-6. Now, you can see P4V interface.
+5. Now, you can see P4V interface.
 
-   <p align="center"><img width="70%" src="assets/helix-core/3-p4v-interface.PNG" alt="P4V Interfaces"></p>
+    <p align="center"><img width="70%" src="assets/helix-core/3-p4v-interface.PNG" alt="P4V Interfaces"></p>
 
 It has 3 main pane :
 
-* **Toolbar** : Provides quick access to a subset of actions and tools available from the menu bar. To get information about a toolbar item or other object in P4V, move the mouse pointer over the object. P4V displays a small window (tooltip) containing status or explanatory information about the object. P4V makes extensive use of tooltips.
+- **Toolbar** : Provides quick access to a subset of actions and tools available from the menu bar. To get information about a toolbar item or other object in P4V, move the mouse pointer over the object. P4V displays a small window (tooltip) containing status or explanatory information about the object. P4V makes extensive use of tooltips.
 
-* **Left pane** : Includes the following tabs:
-  * **Depot Tree** : Shows all of the files in the depot.
-  * **Workspace Tree** : Shows the files on your computer, including files that are not in the depot
+- **Left pane** : Includes the following tabs:
+  - **Depot Tree** : Shows all of the files in the depot.
+  - **Workspace Tree** : Shows the files on your computer, including files that are not in the depot
 
-* **Right pane** : Contains tabs for working with changelists, labels, workspaces, users, jobs, streams, and branches.
+- **Right pane** : Contains tabs for working with changelists, labels, workspaces, users, jobs, streams, and branches.
 
 ### Get the project
 
-1. In P4V, create a new workspace with Connection > New Workspace.
-2. Change the workspace to follow a convention : username_stream-name (e.g jdoe_main or jdoe_arts).
-3. Choose the folder on which the files will be put in workspace root.
-4. For the stream, select Browse and pick //<YOUR_PROJECT_NAME>/main.
+1. Follow the step to switch [stream](#retrieve-a-stream) and pick the main stream.
 
-   <p align="center"><img width="50%" src="assets/helix-core/4-workspace-creation.PNG" alt="Create a Workspace"></p>
-
-5. Go to Advanced, enable `Rmdir` and select `Revert unchanged files` in `On submit` dropdown.
-
-   <p align="center"><img width="50%" src="assets/helix-core/5-workspace-settings.PNG" alt="Configure Workspace"></p>
-
-6. Press OK.
-7. On the left pane, click on `Workspace` tab and select the folder. Then, click of the big `Get Latest` button on the top toolbar.
-
-   You now have the last version of the project.
-
-8. Open a terminal and type :
-
-   ```bash
-   p4 set P4IGNORE=.p4ignore.txt
-   ```
+2. You have now the last version of the project.
 
 ## Configuration
 
@@ -72,7 +75,7 @@ It has 3 main pane :
 
 1. Go to your working directory and open the .uproject.
 
-2. At the bottom right corner, click on Revision Control > Connect to Revision Control.
+2. At the bottom right corner, click on `Revision Control > Connect to Revision Control`.
 
 3. In provider, select Perforce.
 
@@ -82,27 +85,157 @@ It has 3 main pane :
 
 6. Click `Accept Settings`. Now perforce integration is activated.
 
-7. In File > Editor Preferences, search and enable `Automatically Checkout on Asset Modification`.
+7. In Edit > Editor Preferences, search and enable `Automatically Checkout on Asset Modification`.
 
 ## Usage
 
+### P4V
+
+#### Create a changelist
+
+1. Go to the Pending Changelists pane (View > Pending changelists).
+
+    <p align="center"><img width="70%" src="assets/helix-core/p4v-pending-changelist.PNG" alt="Default changelist"></p>
+
+2. You should see the default changelist listed at the top. This changelist contains files that have been modified but not yet submitted. Double-click on the default changelist, add a description and uncheck any files you don't want to appear in the new changelist.
+
+    <p align="center"><img width="70%" src="assets/helix-core/p4v-create-a-changelist.PNG" alt="Create a new changelist"></p>
+
+3. Click on save to create a new changelist and it will appear in the Pending Changelists pane.
+
+---
+
+#### Create a review
+
+1. Go to the Pending Changelists pane (View > Pending changelists).
+
+2. Edit the changelist you want to create a review and add the `#review` keyword in the description.
+
+3. Go to your swarm site and you'll find your review.
+
+---
+
+#### Submit a changelist
+
+1. Go to the Pending Changelists pane (View > Pending changelists).
+
+2. Right-click on the changelist you want to submit then select `Submit...`.
+
+3. Add a description, check all files again and click on Submit.
+
+---
+
+#### Shelve
+
+*Shelve is the process of temporarily storing files in the Helix server without checking in a changelist.*
+
+1. Go to the Pending Changelists pane (View > Pending changelists).
+
+2. Right-click on the changelist you want to shelve and select `Shelve Files...`.
+
+3. Uncheck the files you don't want to shelve and click on Shelve. Now everyone can get your changes without having to submit them.
+
+---
+
+#### Unshelve
+
+*Unshelve is the process to pick a shelve changelist and apply its modification in your workspace.* So that you can pick someone else's changelist to review or debug.
+
+1. Go to the Pending Changelists pane (View > Pending changelists).
+
+2. (Optional) If the shelve belongs to someone else, replace the user in the Pending changelists search bar (e.g hpasquier).
+
+    <p align="center"><img width="70%" src="assets/helix-core/p4v-changelist-search-bar.PNG" alt="Pending changelists search bar"></p>
+
+3. Right-click on the changelist and select `Unshelve Files...`.
+
+#### Create a stream
+
+1. Go to the Stream Graph pane (View > Stream Graph).
+
+    <p align="center"><img width="70%" src="assets/helix-core/p4v-stream-graph.PNG" alt="Stream Graph pane"></p>
+
+2. Press Ctrl+N and add a stream name.
+
+    <p align="center"><img width="40%" src="assets/helix-core/p4v-create-a-stream.PNG" alt="Create a new stream window"></p>
+
+3. Select the stream type corresponding to your need :
+
+    <p align="center"><img width="40%" src="assets/helix-core/p4v-pick-stream-type.png" alt="Pick a stream type"></p>
+
+    :warning: Keep in mind that Helix Core copy the entire project for each stream (except virtual stream).
+
+4. Click on OK.
+
+---
+
+#### Retrieve a stream
+
+1. Create a new workspace with Connection > New Workspace.
+2. Change the workspace to follow a convention : username_stream-name (e.g jdoe_main or jdoe_arts).
+3. Choose the folder on which the files will be put in workspace root.
+4. For the stream, select Browse and pick the stream you want (e.g //<YOUR_PROJECT_NAME>/main).
+
+    <p align="center"><img width="50%" src="assets/helix-core/4-workspace-creation.PNG" alt="Create a Workspace"></p>
+
+5. Go to Advanced, enable `Rmdir` and select `Revert unchanged files` in `On submit` dropdown.
+
+    <p align="center"><img width="50%" src="assets/helix-core/5-workspace-settings.PNG" alt="Configure Workspace"></p>
+
+6. Press OK.
+7. On the left pane, click on `Workspace` tab and select the folder. Then, click of the big `Get Latest` button on the top toolbar.
+
+### Unreal Engine
+
 :warning: Always open P4V before opening your project, because it will refresh all files states (locked, outdated...).
 
-## Get Latest Version
-
-1. In Unreal Engine, right click on the `Content` folder
-
-### Submit a changelist
+#### Create a changelist
 
 1. Create a new Blueprint and save it. A green sum sign appear on the new Blueprint meaning it's mark for add.
 
-   <p align="center"><img width="10%" src="assets/helix-core/6-mark-for-add.PNG" alt="Mark for add icon"></p>
+    <p align="center"><img width="10%" src="assets/helix-core/unreal-mark-for-add.PNG" alt="Mark for add icon"></p>
+
+2. At the bottom right corner, click on Revision Control > View Changes. It list all pending changelist.
+
+    <p align="center"><img width="70%" src="assets/helix-core/unreal-view-changes.PNG" alt="View changes"></p>
+
+   :information_source: Your new blueprint will be linked to the `default` changelist.
+
+3. Right-click on your file in the default changelist and select `Move Files To...`.
+
+    <p align="center"><img width="70%" src="assets/helix-core/unreal-move-files-to.png" alt="Move files To window"></p>
+
+4. Add a description and click OK. You have created a new changelist !
+
+   You can also create a new changelist by clicking on the + button :
+
+    <p align="center"><img width="70%" src="assets/helix-core/unreal-create-changelist.png" alt="Create a new changelist button"></p>
+
+---
+
+#### Submit a changelist
+
+1. Create a new Blueprint and save it.
 
 2. At the bottom right corner, click on Revision Control > Submit Content. This window will be displayed :
 
-   <p align="center"><img width="60%" src="assets/helix-core/7-submit-content.PNG" alt="Submit content"></p>
+    <p align="center"><img width="60%" src="assets/helix-core/unreal-submit-content.PNG" alt="Submit content"></p>
 
-3. After setting a description, you just need to click on `Submit`.
+3. By default, your changelist will contains every files updated. Don't forget to remove files you don't want to submit yet.
+
+4. After setting a description, you just need to click on `Submit`.
+
+---
+
+#### Review a changelist
+
+You can pick someone else's changelist to review or debug.
+
+1. At the bottom right corner, click on Revision Control > Review Changelists. This window will be displayed :
+
+    <p align="center"><img width="60%" src="assets/helix-core/unreal-review-changelists.PNG" alt="Review changelists window"></p>
+
+2. Pick the changelist you want to load and now you are good to go !
 
 ## Glossary
 
@@ -121,4 +254,4 @@ It has 3 main pane :
 
 ## References
 
-* [P4V User guide](https://www.perforce.com/manuals/p4v/p4v.pdf)
+    - [P4V User guide](https://www.perforce.com/manuals/p4v/p4v.pdf)
