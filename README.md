@@ -2,6 +2,17 @@
 
 Documentation hub to install and configure a game development pipeline (versioning, authentication, automatic build...) on self-host infrastructure.
 
+- [Game production pipeline](#game-production-pipeline)
+  - [Why](#why)
+  - [About The Project](#about-the-project)
+  - [Screenshots](#screenshots)
+  - [System](#system)
+    - [Requirements](#requirements)
+    - [Containers Overview](#containers-overview)
+  - [Installation](#installation)
+  - [License](#license)
+  - [Contact](#contact)
+
 ## Why
 
 This repository serves as a centralized hub for documentation, capturing the setup and configuration processes for our game development pipeline. It's designed to store comprehensive guides on versioning, authentication, automated builds, and other critical components, referencing official documentation to ensure accuracy and reliability. By documenting our configurations, we ensure consistency and facilitate easy replication for future setups or sharing with friends interested in similar projects.
@@ -39,6 +50,47 @@ For our pipeline, we will install several services :
 <p>
   <img src="assets/nginx-proxy-manager-interface.png" alt="Nginx Proxy Manager Web Page" width="49.5%">
 </p>
+
+## System
+
+### Requirements
+
+:warning: For the moment, this guide has only been tested on Helix Products versions 2024.1.
+
+To date, we have tested and operated our pipeline on :
+
+- OS : Debian 11
+- Processor :
+- Memory : 16G
+- Hard Disk : 200GB
+
+The recommended configuration is :
+
+- Processor : 2.4GHZ 8-Core or 3.2GHZ 4-Core
+- Memory : 8GO
+- Hard Disk : 64GB
+
+You can consult the official hardware requirements for each service :
+
+- [Helix Core](https://www.perforce.com/manuals/p4sag/Content/P4SAG/install.planning.html)
+- [Helix Swarm](https://www.perforce.com/manuals/swarm/Content/Swarm/setup.dependencies.html#Recommended_operating_systems)
+- [Grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/#hardware-recommendations)
+
+### Containers Overview
+
+Here is a list of all the containers that can be installed in this guide :
+
+| Service Name                 | Public             | Ports                                                                                                                 |
+| ---------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| Nginx Proxy Manager          | :heavy_check_mark: | <ul><li>Web - 80 - TCP</li><li>Web Admin - 81 - TCP</li><li>Web - 443 - TCP</li><li>Helix Core - 1666 - TCP</li></ul> |
+| Helix Core                   | :heavy_check_mark: | <ul><li>Helix Core - 1666 - TCP</li></ul>                                                                             |
+| Helix Authentication Service | :heavy_check_mark: | <ul><li>Web - 3000 - TCP</li></ul>                                                                                    |
+| Helix Swarm                  | :heavy_check_mark: | <ul><li>Web - 80 - TCP</li><li>Web - 443 - TCP</li></ul>                                                              |
+| Portainer                    | :heavy_check_mark: | <ul><li>Web Admin - 9443 - TCP</li></ul>                                                                              |
+| Grafana                      | :heavy_check_mark: | <ul><li>Web Admin - 4000 - TCP</li></ul>                                                                              |
+| Prometheus                   | :heavy_check_mark: | <ul><li>Web Admin - 9090 - TCP</li></ul>                                                                              |
+| Node Exporter                | :x:                | <ul><li>Scrap Metrics - 9100 - TCP</li></ul>                                                                          |
+| Redis Server                 | :x:                | <ul><li>Webdis - 7379 - TCP</li></ul>                                                                                 |
 
 ## Installation
 
