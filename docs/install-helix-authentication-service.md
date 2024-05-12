@@ -32,7 +32,9 @@ In this guide, we install and configure the Helix authentication service, which 
    #     external: true
    ```
 
-2. In docker-compose.yaml file, change the SVC_BASE_URI to your service url (e.g https://<YOUR_SRV_IP>:3000/).
+2. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host).
+
+3. In docker-compose.yaml file, change the SVC_BASE_URI to your service url (e.g https://<YOUR_SRV_IP>:3000/ or the reverse proxy subdomain).
    You can also add extra [Helix Authentication settings](https://www.perforce.com/manuals/helix-auth-svc/Content/HAS/configuring-has.html#Configuring_Helix_Authentication_Service) depending on your need.  
 
    Now, we need to link Helix Authentication to an Identity Provider.

@@ -70,19 +70,21 @@ In this guide, we explain how to install and configure Helix Swarm to review you
 
    As Perforce mentioned in their website, [Redis will write its cache to disc, and to preserve it between restarts](https://github.com/perforce/helix-swarm-docker/tree/main?tab=readme-ov-file#persisting-containers-production). And Swarm log files, the worker queue, tokens and workspaces will also be preserved in their volume.
 
-3. (Optional) If you want to use an anonymous account, pull `greenbone/redis-server` and `perforce/helix-swarm` from portainer :
+3. (Optional) If you want to use an anonymous account, pull `greenbone/redis-server` and `perforce/helix-swarm` from portainer or run :
 
     ```bash
     sudo docker pull perforce/helix-swarm && sudo docker pull greenbone/redis-server
     ```
 
-4. Launch your container :
+4. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host) and use the forward port 80. You will also need to change the hostname and domainname of the docker-compose with your new subdomain (e.g swarm.example.com) to be accessible by both your Helix Core Server and your users.
+
+5. Deploy your container :
 
     ```bash
     sudo docker-compose up --build -d
     ```
 
-5. Follow the official documentation to [validate your Swarm installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.validate_install.html#Validate_your_Swarm_installation).
+6. Follow the official documentation to [validate your Swarm installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.validate_install.html#Validate_your_Swarm_installation).
 
 ## Configuration
 

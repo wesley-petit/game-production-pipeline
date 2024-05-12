@@ -38,13 +38,15 @@ This section has for goal to install services for server monitoring (disk usage.
    #     external: true
    ```
 
-2. (Optional) If you want to use an anonymous account, pull `grafana/grafana-enterprise` from portainer :
+2. (Optional) If you want to use an anonymous account, pull `grafana/grafana-enterprise` from portainer or run :
 
    ```bash
    sudo docker pull grafana/grafana-enterprise
    ```
 
-3. Launch your container :
+3. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host) and use the forward port 3000.
+
+4. Deploy your container :
 
    ```bash
    sudo docker-compose up --build -d
@@ -52,15 +54,15 @@ This section has for goal to install services for server monitoring (disk usage.
 
    Docker compose will use two volumes to keep data and logs persistent even if a container stop or restart.
 
-4. Go to http://<YOUR_SRV_IP>:4000/.
+5. Go to http://<YOUR_SRV_IP>:4000/.
 
-5. On the sign-in page, enter admin for both the username and password.
+6. On the sign-in page, enter admin for both the username and password.
 
-6. Click Sign in.
+7. Click Sign in.
 
-7. If successful, you’ll see a prompt to change the password.
+8. If successful, you’ll see a prompt to change the password.
 
-8. Click OK on the prompt and change your password.
+9. Click OK on the prompt and change your password.
 
 ### [Prometheus](https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-prometheus/prometheus-config-examples/docker-compose-linux/)
 
@@ -129,21 +131,22 @@ This section has for goal to install services for server monitoring (disk usage.
 
 3. Replace <YOUR_TARGET_IP> in `prometheus.yml` by the server ip you want to audit.
 
-4. (Optional) If you want to use an anonymous account, pull `prom/prometheus` and `prom/node-exporter` from portainer :
+4. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host) and use the forward port 9090.
+
+5. (Optional) If you want to use an anonymous account, pull `prom/prometheus` and `prom/node-exporter` from portainer or run :
 
    ```bash
    sudo docker pull prom/prometheus && sudo docker pull prom/node-exporter
    ```
 
-5. Install Prometheus and Node Exporter :
+6. Install Prometheus and Node Exporter :
 
    ```bash
    sudo docker-compose up --build -d
    ```
 
-6. Go to http://<YOUR_SRV_IP>:<PROMETHEUS_PORT>/ and you will see this interface :
+7. Go to http://<YOUR_SRV_IP>:<PROMETHEUS_PORT>/ and you will see this interface :
    <p align="center"><img width="70%" src="assets/prometheus/0-prometheus-interface.PNG" alt="Prometheus interface"></p>
-
 
 ## Configuration
 
