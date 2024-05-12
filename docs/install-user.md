@@ -1,6 +1,6 @@
 # Perforce User guide for Unreal Engine
 
-In these guide we will install P4V to communicate with your Helix Core server.
+In these guide we will install P4V to use your Helix Core server.
 
 <p align="center"><img width="60%" src="assets/helix-core/home-page.webp" alt="P4V interface"></p>
 

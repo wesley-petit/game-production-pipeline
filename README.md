@@ -1,8 +1,16 @@
 # Game production pipeline
 
+[User documentation](docs/install-user.md) &mdash;
+[Admin documentation](#installation) &mdash;
+[License](LICENSE) &mdash;
+[Contact](#contact)
+
 Documentation hub to install and configure a game development pipeline (versioning, authentication, automatic build...) on self-host infrastructure.
 
+## Table Of Contents
+
 - [Game production pipeline](#game-production-pipeline)
+  - [Table Of Contents](#table-of-contents)
   - [Why](#why)
   - [About The Project](#about-the-project)
   - [Screenshots](#screenshots)
@@ -57,6 +65,8 @@ For our pipeline, we will install several services :
 
 :warning: For the moment, this guide has only been tested on Helix Products versions 2024.1.
 
+In these guide, we install all our services on one server due to lack of resources, but our documentation offers instructions for installing and connecting services in a game development pipeline, without imposing a specific infrastructure setup. Users have the freedom to deploy services on one machine or across multiple servers, enabling them to customize their infrastructure according to their preferences and requirements.
+
 To date, we have tested and operated our pipeline on :
 
 - OS : Debian 11
@@ -93,6 +103,8 @@ Here is a list of all the containers that can be installed in this guide :
 | Redis Server                 | :x:                | <ul><li>Webdis - 7379 - TCP</li></ul>                                                                                 |
 
 ## Installation
+
+:information_source: We also provide an [user installation guide](docs/install-user.md) to install P4V Client and how to use Helix Swarm.
 
 1. Follow [Docker and Portainer installation guide](docs/install-docker.md).
 2. (Optional) If you want to enhances security and reliability of the web server (force https, authentication on admin website...), follow the [Nginx Proxy Manager installation guide](docs/install-nginx-proxy-manager-interface.md).
