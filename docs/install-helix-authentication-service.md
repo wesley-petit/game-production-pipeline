@@ -7,29 +7,29 @@ In this guide, we install and configure the Helix authentication service, which 
 1. Copy the `docker-compose.yaml` file in your server :
 
    ```yaml
-   version: '3'
+    version: '3'
 
-   services:
-      helix-auth-svc:
-         image: perforce/helix-auth-svc:latest
-         container_name: helix-auth-svc
-         restart: unless-stopped
-         environment:
-            - SVC_BASE_URI=<YOUR_SVC_BASE_URI> # e.g https://<YOUR_SRV_IP>:3000/ 
-            - PROTOCOL=https
-            - DEBUG=no
-            - NODE_ENV=production
-            - OIDC_ISSUER_URI=<YOUR_ISSUER>
-            - OIDC_CLIENT_ID=<YOUR_CLIENT_ID>
-            - OIDC_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
-         ports:
-            - "3000:3000"
-         #networks:
-         #   - nginx-proxy
+    services:
+        helix-auth-svc:
+            image: perforce/helix-auth-svc:latest
+            container_name: helix-auth-svc
+            restart: unless-stopped
+            environment:
+                - SVC_BASE_URI=<YOUR_SVC_BASE_URI> # e.g https://<YOUR_SRV_IP>:3000/ 
+                - PROTOCOL=https
+                - DEBUG=no
+                - NODE_ENV=production
+                - OIDC_ISSUER_URI=<YOUR_ISSUER>
+                - OIDC_CLIENT_ID=<YOUR_CLIENT_ID>
+                - OIDC_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
+            ports:
+                - "3000:3000"
+            #networks:
+            #   - nginx-proxy
 
-   # networks:
-   #   nginx-proxy:
-   #     external: true
+    # networks:
+    #   nginx-proxy:
+    #     external: true
    ```
 
 2. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host).
@@ -59,19 +59,19 @@ We use Auth0, because it proposes a free tier without credit card that is limite
 
 8. In docker-compose.yaml file, update the following variables :
 
-   ```yaml
-   OIDC_ISSUER_URI: "<YOUR_ISSUER>"
-   OIDC_CLIENT_ID: "<YOUR_CLIENT_ID>"
-   OIDC_CLIENT_SECRET: "<YOUR_CLIENT_SECRET>"
-   ```
+    ```yaml
+    OIDC_ISSUER_URI: "<YOUR_ISSUER>"
+    OIDC_CLIENT_ID: "<YOUR_CLIENT_ID>"
+    OIDC_CLIENT_SECRET: "<YOUR_CLIENT_SECRET>"
+    ```
 
 9. Launch the service :
 
-   ```bash
-   sudo docker-compose up --build -d
-   ```
+    ```bash
+    sudo docker-compose up -d
+    ```
 
-   Now we will the link it with Helix core server.
+    Now we will the link it with Helix core server.
 
 ### Configure Helix Core extension
 
@@ -79,15 +79,15 @@ We use Auth0, because it proposes a free tier without credit card that is limite
 
 2. Clone the [Helix Authentication extension](https://github.com/perforce/helix-authentication-extension/tree/main) :
 
-   ```bash
-   git clone https://github.com/perforce/helix-authentication-extension.git /srv/helix-authentication-extension
-   ```
+    ```bash
+    git clone https://github.com/perforce/helix-authentication-extension.git /srv/helix-authentication-extension
+    ```
 
 3. Launch the configuration script :
 
-   ```bash
-   bash /srv/helix-authentication-extension/bin/configure-login-hook.sh
-   ```
+    ```bash
+    bash /srv/helix-authentication-extension/bin/configure-login-hook.sh
+    ```
 
 4. In configuration steps, override some defaults values :
 
@@ -109,20 +109,20 @@ We use Auth0, because it proposes a free tier without credit card that is limite
 
 6. Now, you can test the extension by typing :
 
-   ```bash
-   p4 extension --run loginhook-a1 test-all
-   ```
+    ```bash
+    p4 extension --run loginhook-a1 test-all
+    ```
 
-   It will run several tests, a complete description is available [here](https://github.com/perforce/helix-authentication-extension/blob/main/docs/Administrator-Guide.md#testing).
+    It will run several tests, a complete description is available [here](https://github.com/perforce/helix-authentication-extension/blob/main/docs/Administrator-Guide.md#testing).
 
 7. If you enabled logging in the extension configuration, you could find them by typing :
 
-   ```bash
-   p4 extension --list --type=extensions
-   ```
+    ```bash
+    p4 extension --list --type=extensions
+    ```
 
-   The path assigned to the `data-dir` field corresponds to the log path (e.g. `P4ROOT/server.extensions.dir/117E9283-732B-45A6-9993-AE64C354F1C5/1-data/log.json`).  
-   And on Helix Authentication container, they are visible in the Portainer log section.
+    The path assigned to the `data-dir` field corresponds to the log path (e.g. `P4ROOT/server.extensions.dir/117E9283-732B-45A6-9993-AE64C354F1C5/1-data/log.json`).  
+    And on Helix Authentication container, they are visible in the Portainer log section.
 
 8. Login in P4V client with your superuser account and create a new user in <YOUR_PERFORCE_GROUP_NAME> group. Create the same user in Auth0 (same email address and password).
 

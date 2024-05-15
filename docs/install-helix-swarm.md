@@ -68,7 +68,7 @@ In this guide, we explain how to install and configure Helix Swarm to review you
 
    :warning: [If Helix Authentication Service is configured for your Helix Core Server, the user account running Swarm must not use the Helix Authentication Service](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.dependencies.html#Helix_Core_Server_automated_user_requirements_for_Swarm).
 
-   As Perforce mentioned in their website, [Redis will write its cache to disc, and to preserve it between restarts](https://github.com/perforce/helix-swarm-docker/tree/main?tab=readme-ov-file#persisting-containers-production). And Swarm log files, the worker queue, tokens and workspaces will also be preserved in their volume.
+   As Perforce mentioned in their website, Swarm log files, the worker queue, tokens and workspaces will be preserved in their volume.
 
 3. (Optional) If you want to use an anonymous account, pull `greenbone/redis-server` and `perforce/helix-swarm` from portainer or run :
 
@@ -81,7 +81,7 @@ In this guide, we explain how to install and configure Helix Swarm to review you
 5. Deploy your container :
 
     ```bash
-    sudo docker-compose up --build -d
+    sudo docker-compose up -d
     ```
 
 6. Follow the official documentation to [validate your Swarm installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/setup.validate_install.html#Validate_your_Swarm_installation).

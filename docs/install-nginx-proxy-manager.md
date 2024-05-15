@@ -62,7 +62,7 @@ In this guide, we explain how to install and configure a reverse proxy (force ht
 5. Deploy your container :
 
     ```bash
-    sudo docker-compose up --build -d
+    sudo docker-compose up -d
     ```
 
 6. Go to http://<YOUR_DOMAIN_NAME>:81 and connect with the default admin user :

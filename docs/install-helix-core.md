@@ -161,7 +161,7 @@ In this guide, we explain how to install and configure Helix Core. Unlike Git, H
 4. Install and Configure an helix-core server :
 
     ```bash
-    sudo docker-compose run --rm helix.core /opt/perforce/sbin/configure-helix-p4d.sh
+    sudo docker-compose run --rm helix-core /opt/perforce/sbin/configure-helix-p4d.sh
     ```
 
 5. In configuration steps, override some defaults values :
@@ -181,7 +181,11 @@ In this guide, we explain how to install and configure Helix Core. Unlike Git, H
 
 ## Configuration
 
-1. In Portainer, open a console in the Helix Core container.
+1. In Portainer, open a terminal in Helix Core container or run :
+
+    ```bash
+    sudo docker exec -it helix-core /bin/bash
+    ```
 
 2. Now run the script to apply [Helix Core recommended security settings](https://www.perforce.com/manuals/p4sag/Content/P4SAG/chapter.security.html) and configure [Typemaps](https://www.perforce.com/manuals/v21.1/cmdref/Content/CmdRef/p4_typemap.html) for Unreal using the `typemaps.conf` file in the data folder. For more information, visit [Helix Core configurable list](https://www.perforce.com/manuals/cmdref/Content/CmdRef/configurables.alphabetical.html).
 
