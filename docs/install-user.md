@@ -16,6 +16,7 @@
       - [Unshelve](#unshelve)
       - [Create a stream](#create-a-stream)
       - [Retrieve a stream](#retrieve-a-stream)
+      - [Resolve conflict](#resolve-conflict)
     - [Unreal Engine](#unreal-engine)
       - [Create a changelist](#create-a-changelist-1)
       - [Submit a changelist](#submit-a-changelist-1)
@@ -25,11 +26,11 @@
 
 In these guide we will install P4V and configure Unreal Engine to use your Helix Core server.
 
-<p align="center"><img width="60%" src="assets/helix-core/home-page.webp" alt="P4V interface"></p>
+    <p align="center"><img width="60%" src="assets/helix-core/home-page.webp" alt="P4V interface"></p>
 
 ## Concepts
 
-<p align="center"><img width="50%" src="assets/helix-core/0-helix-concept.PNG" alt="Helix Core concepts"></p>
+    <p align="center"><img width="50%" src="assets/helix-core/0-helix-concept.PNG" alt="Helix Core concepts"></p>
 
 ## Installation
 
@@ -184,6 +185,36 @@ It has 3 main pane :
 
 6. Press OK.
 7. On the left pane, click on `Workspace` tab and select the folder. Then, click of the big `Get Latest` button on the top toolbar.
+
+---
+
+#### Resolve conflict
+
+1. Conflict files have a question mark icon.
+
+    <p align="center"><img width="30%" src="assets/helix-core/p4v-conflict-file.PNG" alt="Conflict files icon"></p>
+
+2. Right-click on the file and pick `Resolve...`.
+
+3. The resolve window will open and provide you with multiple options (Accept Source, Accept Target...).
+
+    <p align="center"><img width="50%" src="assets/helix-core/p4v-resolve-window.PNG" alt="Resolve window"></p>
+
+4. We recommend to `Run Merge Tool` and it will show conflict sections.
+
+    <p align="center"><img width="100%" src="assets/helix-core/p4v-run-merge-tool.PNG" alt="Run Merge Tool"></p>
+
+    From left to right, you have the source, base and target.
+        - Source : Your changes.
+        - Base : Version you based your changes.
+        - Target : Current version in Helix Core.
+
+5. For each conflict, you can pick the version using the bottom window. Each conflict has 2 icons next to it (blue for source and green for target), you just have to click on the corresponding icon.
+
+    <p align="center"><img width="60%" src="assets/helix-core/p4v-run-merge-tool-pick-line.PNG" alt="Pick line during Run Merge Tool"></p>
+
+6. Save your changes (Ctrl + S) and close the window. P4V will automatically propose to replace the conflict file with the merged result file, click on yes.
+7. Repeat the process for each file and your are done !
 
 ### Unreal Engine
 
