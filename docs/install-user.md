@@ -26,11 +26,11 @@
 
 In these guide we will install P4V and configure Unreal Engine to use your Helix Core server.
 
-    <p align="center"><img width="60%" src="assets/helix-core/home-page.webp" alt="P4V interface"></p>
+  <p align="center"><img width="60%" src="assets/helix-core/home-page.webp" alt="P4V interface"></p>
 
 ## Concepts
 
-    <p align="center"><img width="50%" src="assets/helix-core/0-helix-concept.PNG" alt="Helix Core concepts"></p>
+  <p align="center"><img width="50%" src="assets/helix-core/0-helix-concept.PNG" alt="Helix Core concepts"></p>
 
 ## Installation
 
