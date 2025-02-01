@@ -1,20 +1,16 @@
-# Install Winget tool : https://learn.microsoft.com/en-us/windows/package-manager/winget/
 $ProgressPreference = 'SilentlyContinue'
 $ErrorActionPreference = "Stop"
 
+New-Item -Path Temp -ItemType Directory -Force
+
+# Install Winget tool : https://learn.microsoft.com/en-us/windows/package-manager/winget/
 Write-Information "Downloading WinGet and its dependencies..."
 
-New-Item -Path Temp -ItemType Directory
-Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
-Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx
-Invoke-WebRequest -Uri https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x64.appx -OutFile Temp\Microsoft.UI.Xaml.2.8.x64.appx
-Add-AppxPackage Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx
-Add-AppxPackage Temp\Microsoft.UI.Xaml.2.8.x64.appx
-Add-AppxPackage Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
-
-# Fix "No applicable app licenses error" : https://www.virtualizationhowto.com/2021/11/install-winget-in-windows-server-2022-no-applicable-app-licenses-error/
-Invoke-WebRequest -Uri https://github.com/microsoft/winget-cli/releases/download/v1.8.1791/fb2830f66c95424aa35457b05e88998a_License1.xml -OutFile Temp\fb2830f66c95424aa35457b05e88998a_License1.xml
-Add-AppxProvisionedPackage -Online -PackagePath Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -LicensePath Temp\fb2830f66c95424aa35457b05e88998a_License1.xml -Verbose
+# Install Winget tool : https://learn.microsoft.com/fr-fr/windows/package-manager/winget/#install-winget
+Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
+Install-PackageProvider -Name NuGet -Force | Out-Null
+Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery | Out-Null
+winget --help
 
 Write-Information "Done"
 
