@@ -1,4 +1,6 @@
 # Install Winget tool : https://learn.microsoft.com/en-us/windows/package-manager/winget/
+$progressPreference = 'SilentlyContinue'
+
 Write-Information "Downloading WinGet and its dependencies..."
 
 New-Item -Path Temp -ItemType Directory
