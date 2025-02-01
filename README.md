@@ -57,6 +57,7 @@ For our pipeline, we will install several services :
 
 <p>
   <img src="assets/nginx-proxy-manager-interface.png" alt="Nginx Proxy Manager Web Page" width="49.5%">
+  <img src="assets/jenkins-dahsboard.png" alt="Jenkins Dashboard" width="49.5%">
 </p>
 
 ## System
@@ -67,24 +68,33 @@ For our pipeline, we will install several services :
 
 In these guide, we install all our services on one server due to lack of resources, but our documentation offers instructions for installing and connecting services in a game development pipeline, without imposing a specific infrastructure setup. Users have the freedom to deploy services on one machine or across multiple servers, enabling them to customize their infrastructure according to their preferences and requirements.
 
-To date, we have tested and operated our pipeline on :
+At the moment, we have tested and operated our pipeline on :
 
 - OS : Debian 11
-- Processor :
-- Memory : 16G
+- Processor : 2.4GHZ 8-Core or 3.2GHZ 4-Core
+- Memory : 16Go
 - Hard Disk : 200GB
 
 The recommended configuration is :
 
+- OS : Any linux distribution
 - Processor : 2.4GHZ 8-Core or 3.2GHZ 4-Core
 - Memory : 8GO
 - Hard Disk : 64GB
+
+And if you wish to configure automatic build, we suggest you use another server so as not to slow down perforce performance during a build. In these case, the recommended configuration for the build agent is :
+
+- OS : Windows 11
+- Processor : 2.4GHZ 8-Core or 3.2GHZ 4-Core
+- Memory : 8GO
+- Hard Disk : 128GB
 
 You can consult the official hardware requirements for each service :
 
 - [Helix Core](https://www.perforce.com/manuals/p4sag/Content/P4SAG/install.planning.html)
 - [Helix Swarm](https://www.perforce.com/manuals/swarm/Content/Swarm/setup.dependencies.html#Recommended_operating_systems)
 - [Grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/#hardware-recommendations)
+- [Unreal Engine](https://dev.epicgames.com/documentation/en-us/unreal-engine/hardware-and-software-specifications-for-unreal-engine)
 
 ### Containers Overview
 
@@ -97,6 +107,8 @@ Here is a list of all the containers that can be installed in this guide :
 | Helix Authentication Service | :heavy_check_mark: | <ul><li>Web - 3000 - TCP</li></ul>                                                                                    |
 | Helix Swarm                  | :heavy_check_mark: | <ul><li>Web - 80 - TCP</li><li>Web - 443 - TCP</li></ul>                                                              |
 | Portainer                    | :heavy_check_mark: | <ul><li>Web Admin - 9443 - TCP</li></ul>                                                                              |
+| Jenkins Main                 | :heavy_check_mark: | <ul><li>Web - 8080 - TCP</li><li>Agent - 50 000 - TCP</li></ul>                                                       |
+| Jenkins Windows Agent        | :heavy_check_mark: | <ul><li>Web - 8006 - TCP</li><li>RDP - 3389 - TCP</li><li>RDP - 3389 - UDP</li></ul>                                  |
 | Grafana                      | :heavy_check_mark: | <ul><li>Web Admin - 4000 - TCP</li></ul>                                                                              |
 | Prometheus                   | :heavy_check_mark: | <ul><li>Web Admin - 9090 - TCP</li></ul>                                                                              |
 | Node Exporter                | :x:                | <ul><li>Scrap Metrics - 9100 - TCP</li></ul>                                                                          |
@@ -111,7 +123,8 @@ Here is a list of all the containers that can be installed in this guide :
 3. Follow [Helix Core installation guide](docs/install-helix-core.md).
 4. Follow [Helix Authentication installation guide](docs/install-helix-authentication-service.md).
 5. Follow [Helix Swarm installation guide](docs/install-helix-swarm.md).
-6. Follow [Grafana and Prometheus installation guide](docs/install-grafana-with-prometheus.md).
+6. Follow [Jenkins installation guide](docs/install-jenkins.md).
+7. Follow [Grafana and Prometheus installation guide](docs/install-grafana-with-prometheus.md).
 
 ## License
 

@@ -266,7 +266,7 @@ You can pick someone else's changelist to review or debug.
 
     <p align="center"><img width="60%" src="assets/helix-core/unreal-review-changelists.PNG" alt="Review changelists window"></p>
 
-2. Pick the changelist you want to load and now you are good to go !
+2. Enter the changelist id you want to load and now you are good to go !
 
 ## Glossary
 

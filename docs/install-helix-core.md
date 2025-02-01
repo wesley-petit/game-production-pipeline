@@ -101,6 +101,7 @@ In this guide, we explain how to install and configure Helix Core. Unlike Git, H
             binary+l //....umap
             binary+l //....udk
             binary+l //....ubulk
+            binary+l //....articyue
             text //....js
             text //...shader
             text //....meta

@@ -76,7 +76,7 @@ In this guide, we explain how to install and configure Helix Swarm to review you
     sudo docker pull perforce/helix-swarm && sudo docker pull greenbone/redis-server
     ```
 
-4. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host) and use the forward port 80. You will also need to change the hostname and domainname of the docker-compose with your new subdomain (e.g swarm.example.com) to be accessible by both your Helix Core Server and your users.
+4. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host) and forward the port 80. You will also need to change the hostname and domainname of the docker-compose with your new subdomain (e.g swarm.example.com) to be accessible by both your Helix Core Server and your users.
 
 5. Deploy your container :
 
