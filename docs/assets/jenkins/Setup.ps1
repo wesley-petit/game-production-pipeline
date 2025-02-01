@@ -1,5 +1,6 @@
 # Install Winget tool : https://learn.microsoft.com/en-us/windows/package-manager/winget/
-$progressPreference = 'SilentlyContinue'
+$ProgressPreference = 'SilentlyContinue'
+$ErrorActionPreference = "Stop"
 
 Write-Information "Downloading WinGet and its dependencies..."
 
@@ -21,6 +22,7 @@ Write-Information "Done"
 # Command line arguments : https://learn.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio?view=vs-2022
 Write-Information "Downloading Visual Studio..."
 winget install --id Microsoft.VisualStudio.2022.BuildTools --override "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools --add Microsoft.VisualStudio.Component.VC.14.36.17.6.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.22621 --wait --quiet" --silent
+# winget install --id Microsoft.VisualStudio.2022.BuildTools --override "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools --add Microsoft.VisualStudio.Workload.UniversalBuildTools --add Microsoft.VisualStudio.Workload.NativeGame --wait --quiet" --silent
 Write-Information "Done"
 
 # Install .NET Core
