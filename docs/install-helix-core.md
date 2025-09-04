@@ -4,6 +4,12 @@ In this guide, we explain how to install and configure Helix Core. Unlike Git, H
 
 :information_source: We also provide an [user documentation](install-user.md) to install P4V and use your Helix Core server.
 
+- [Helix Core installation guide with Docker](#helix-core-installation-guide-with-docker)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+  - [Upgrade your server](#upgrade-your-server)
+  - [References](#references)
+
 ## [Installation](https://aricodes.net/posts/perforce-server-with-docker/)
 
 1. Copy the docker-compose.yaml file to your server :
@@ -242,6 +248,112 @@ In this guide, we explain how to install and configure Helix Core. Unlike Git, H
     p4 admin restart
     ```
 
+## Upgrade your server
+
+In this section, we will list all commands required to upgrade an helix core server. You can checkout [the official documentation](https://help.perforce.com/helix-core/server-apps/p4sag/current/Content/P4SAG/upgrade-from-2019x-single-server.html) for more information. We use `/data/root` as the P4ROOT for our upgrades, change it to correspond to your path.
+
+1. In Portainer, open a terminal in Helix Core container or run :
+
+    ```bash
+    sudo docker exec -it helix-core /bin/bash
+    ```
+
+2. Create a checkpoint :
+
+    ```bash
+    p4d -r /data/root -jc
+    ```
+
+3. Save your checkpoints in a safe place.
+
+4. Verify the integrity of submitted file revisions by running :
+
+    ```bash
+    p4 verify -q //...
+    ```
+
+5. Verify the integrity of shelved files (if any) by running :
+
+    ```bash
+    p4 verify -qS //...
+    ```
+
+6. Shut down the server :
+
+    ```bash
+    p4 admin stop
+    ```
+
+7. Update perforce binaries :
+
+    ```bash
+    apt update -y && apt upgrade -y
+    ```
+
+8. Upgrade your database :
+
+    ```bash
+    p4d -r /data/root -J P4JOURNAL -xu
+    ```
+
+9. Wait until you see this message : `Upgrades will be applied at server startup`.
+
+10. As we must [run the server with the same access than P4SSLDIR](https://help.perforce.com/helix-core/server-apps/cmdref/current/Content/CmdRef/P4SSLDIR.html), connect to the perforce user :
+
+    ```bash
+    su - perforce
+    ````
+
+11. Add P4SSLDIR in your environment variable :
+
+    ```bash
+    export P4SSLDIR=/data/root/ssl
+    ````
+
+12. Start the server :
+
+    ```bash
+    p4d -r /data/root -p ssl:1666 -d
+    ```
+
+13. Verify the integrity of submitted file revisions by running :
+
+    ```bash
+    p4 verify -q //...
+    ```
+
+14. Verify the integrity of shelved files (if any) by running :
+
+    ```bash
+    p4 verify -qS //...
+    ```
+
+15. Exit the container and pull the latest image :
+
+    ```bash
+    sudo docker-compose pull
+    ```
+
+16. Rebuild the image :
+
+    ```bash
+    sudo docker-compose build --no-cache
+    ```
+
+17. Recreate a container with the new image :
+
+    ```bash
+    sudo docker-compose up -d --force-recreate
+    ```
+
+18. Delete the old image :
+
+    ```bash
+    sudo docker image prune -f
+    ```
+
+19. Check that you have access to your files in P4V and it's done !
+
 ## References
 
 - [Helix Core Administrator Guide](https://www.perforce.com/manuals/p4sag/Content/P4SAG/chapter.install.html)
@@ -250,3 +362,5 @@ In this guide, we explain how to install and configure Helix Core. Unlike Git, H
 - [p4 typemap](https://www.perforce.com/manuals/v21.1/cmdref/Content/CmdRef/p4_typemap.html)
 - [Helix Core recommended settings](https://www.perforce.com/manuals/p4sag/Content/P4SAG/chapter.security.html)
 - [Helix Core configurable list](https://www.perforce.com/manuals/cmdref/Content/CmdRef/configurables.alphabetical.html)
+- [Helix Core how to upgrade a server](https://help.perforce.com/helix-core/server-apps/p4sag/current/Content/P4SAG/upgrade-from-2019x-single-server.html)
+- [Helix Core P4SSLDIR requirements](https://help.perforce.com/helix-core/server-apps/cmdref/current/Content/CmdRef/P4SSLDIR.html)

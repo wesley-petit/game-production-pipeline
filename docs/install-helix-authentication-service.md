@@ -2,6 +2,13 @@
 
 In this guide, we install and configure the Helix authentication service, which enables a user to access multiple applications or services with a single set of login credentials (aka *SSO* or Single Sign-On).
 
+- [Helix Authentication Service installation guide](#helix-authentication-service-installation-guide)
+  - [Installation](#installation)
+    - [Configure an Identity Provider](#configure-an-identity-provider)
+    - [Configure Helix Core extension](#configure-helix-core-extension)
+  - [Upgrade your server](#upgrade-your-server)
+  - [References](#references)
+
 ## [Installation](https://hub.docker.com/r/perforce/helix-auth-svc)
 
 1. Copy the `docker-compose.yaml` file in your server :
@@ -127,6 +134,32 @@ We use Auth0, because it proposes a free tier without credit card that is limite
 8. Login in P4V client with your superuser account and create a new user in <YOUR_PERFORCE_GROUP_NAME> group. Create the same user in Auth0 (same email address and password).
 
 9. When the user login, a web browser page will be opened. After completing the form, he will be connected !
+
+## Upgrade your server
+
+1. Pull the latest image :
+
+    ```bash
+    sudo docker-compose pull
+    ```
+
+2. Rebuild the image :
+
+    ```bash
+    sudo docker-compose build --no-cache
+    ```
+
+3. Recreate a container with the new image :
+
+    ```bash
+    sudo docker-compose up -d --force-recreate
+    ```
+
+4. Delete the old image :
+
+    ```bash
+    sudo docker image prune -f
+    ```
 
 ## References
 

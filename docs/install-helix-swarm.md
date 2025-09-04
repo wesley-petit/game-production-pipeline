@@ -4,6 +4,16 @@ In this guide, we explain how to install and configure Helix Swarm to review you
 
 <p align="center"><img width="70%" src="./assets/helix-swarm/home-page.png" alt="Helix Swarm review page"></p>
 
+- [Helix Swarm installation guide](#helix-swarm-installation-guide)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+    - [HTTPS](#https)
+    - [SSO with Helix Authentication Service](#sso-with-helix-authentication-service)
+    - [Recommended review settings](#recommended-review-settings)
+    - [Apache Security](#apache-security)
+    - [Email Delivery using Gmail server](#email-delivery-using-gmail-server)
+  - [References](#references)
+
 ## [Installation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/docker-container.html#Run_Swarm_using_a_Docker_container)
 
 :warning: [In Helix Swarm official documentation](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/chapter.setup.html), they require to "not prefix group names, project names, user names, or client-names with "swarm-", this is a reserved term used by Swarm. Prefixing a name with "swarm-" will result in unexpected and unwanted behavior in Swarm".
@@ -111,10 +121,10 @@ In this guide, we explain how to install and configure Helix Swarm to review you
 
     ```php
         'p4' => array(
-        'port' => '<YOUR_P4_PORT>',
-        'user' => '<YOUR_SWARM_USER>',
-        'password' => '<YOUR_SWARM_PWD_HAS>',
-        'sso' => 'optional',
+            'port' => '<YOUR_P4_PORT>',
+            'user' => '<YOUR_SWARM_USER>',
+            'password' => '<YOUR_SWARM_PWD_HAS>',
+            'sso' => 'optional',
         ),
     ```
 
@@ -152,7 +162,7 @@ In this guide, we explain how to install and configure Helix Swarm to review you
         ),
     ```
 
-    :info: You can find other configurable in [Helix Swarm Guide](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.reviews.html#Reviews).
+    :information_source: You can find other configurable in [Helix Swarm Guide](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.reviews.html#Reviews).
 
 ### [Apache Security](https://www.perforce.com/manuals/swarm-admin/Content/Swarm/admin.security.html#Apache_security)
 

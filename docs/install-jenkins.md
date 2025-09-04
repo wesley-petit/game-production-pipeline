@@ -9,6 +9,26 @@ In these guide, we explain how to setup Jenkins to automatically package and pre
     <img width="49.5%" src="./assets/jenkins/jenkins-dahsboard.png" alt="Jenkins dashboard page">
 </p>
 
+- [Jenkins installation guide](#jenkins-installation-guide)
+  - [Installation](#installation)
+    - [Install Jenkins Main docker](#install-jenkins-main-docker)
+    - [Install a Windows Agent](#install-a-windows-agent)
+  - [Configuration](#configuration)
+    - [SSO with Auth0](#sso-with-auth0)
+    - [Add Perforce Credentials](#add-perforce-credentials)
+    - [Automatic builds for Unreal Engine](#automatic-builds-for-unreal-engine)
+      - [Setup your pipeline](#setup-your-pipeline)
+      - [Setup build steps](#setup-build-steps)
+      - [Setup artifact](#setup-artifact)
+      - [(Optional) Setup discord notification](#optional-setup-discord-notification)
+  - [Precompile binaries for Unreal Engine](#precompile-binaries-for-unreal-engine)
+    - [Setup Perforce Stream](#setup-perforce-stream)
+    - [Setup your pipeline](#setup-your-pipeline-1)
+      - [Setup pre-compile steps](#setup-pre-compile-steps)
+      - [(Optional) Setup discord notification on failure](#optional-setup-discord-notification-on-failure)
+      - [Submit in Perforce](#submit-in-perforce)
+  - [References](#references)
+
 ## Installation
 
 ### Install [Jenkins Main docker](https://hub.docker.com/r/jenkins/jenkins)
@@ -40,14 +60,14 @@ In these guide, we explain how to setup Jenkins to automatically package and pre
     ```
 
     It will automatically install several plugins :
-       - [P4](https://plugins.jenkins.io/p4/) : Perforce Client plugin for the Jenkins SCM provider.
+       - [P4](https://plugins.jenkins.io/p4/) : Perforce Client plugin for the Jenkins SCM provider.  
        - [Matrix Authorization Strategy](https://plugins.jenkins.io/matrix-auth/) : Offers matrix-based security authorization strategies (global and per-project).
-       - [PostBuildScript](https://plugins.jenkins.io/postbuildscript/) : A plugin for the Jenkins CI to run several configurable actions after a build, depending on the build result. 
-       - [Pre SCM BuildStep](https://plugins.jenkins.io/preSCMbuildstep/) :  This plugin allows build steps to be performed before the SCM step performs an action.
-       - [SCM Skip](https://plugins.jenkins.io/scmskip/) : Plugin adds functionality of preventing a Job to be built when a specific pattern ([ci skip]) in SCM commit message is detected.
-       - [Environment Injector](https://plugins.jenkins.io/envinject/) : This plugin makes it possible to set an environment for the builds.
-       - [Discord Notifier](https://plugins.jenkins.io/discord-notifier/) : Discord Notifier provides a bridge between Jenkins and Discord through the built-in webhook functionality.
-       - [SAML](https://plugins.jenkins.io/saml/) : A SAML 2.0 Plugin for the Jenkins Continuous Integration server.
+       - [PostBuildScript](https://plugins.jenkins.io/postbuildscript/) : A plugin for the Jenkins CI to run several configurable actions after a build, depending on the build result.  
+       - [Pre SCM BuildStep](https://plugins.jenkins.io/preSCMbuildstep/) :  This plugin allows build steps to be performed before the SCM step performs an action.  
+       - [SCM Skip](https://plugins.jenkins.io/scmskip/) : Plugin adds functionality of preventing a Job to be built when a specific pattern ([ci skip]) in SCM commit message is detected.  
+       - [Environment Injector](https://plugins.jenkins.io/envinject/) : This plugin makes it possible to set an environment for the builds.  
+       - [Discord Notifier](https://plugins.jenkins.io/discord-notifier/) : Discord Notifier provides a bridge between Jenkins and Discord through the built-in webhook functionality.  
+       - [SAML](https://plugins.jenkins.io/saml/) : A SAML 2.0 Plugin for the Jenkins Continuous Integration server.  
 
 2. (Optional) If you want to use an anonymous account, pull `wesleypetit/jenkins:lts-jdk11` from portainer or run :
 
@@ -89,7 +109,23 @@ In these guide, we explain how to setup Jenkins to automatically package and pre
 
     <p align="center"><img width="70%" src="./assets/jenkins/windows-node-configuration.png" alt="Windows Node configuration"></p>
 
-6. Now, click on the node and execute the given command in the windows agent.
+6. Now, click on the node and copy the given command in a file of your windows agent (e.g. LaunchAgent.bat).
+
+7. To run your Jenkins agent automatically during system boot, open Task Scheduler.
+
+8. Click on `Create Task...`.
+
+9. Enter a meaningful name for the task (e.g., Jenkins Agent Startup).
+
+10. Under the General tab, check `Run whether user is logged on or not`.
+
+11. Under the Triggers tab, add a new trigger and set it to `At startup`, then click OK.
+
+12. Under the Actions tab, create a bew action and set the Program/script field with the path to your .bat file that starts the Jenkins agent. Click OK.
+
+13. Click OK to save the task.
+
+14. Restart your server to test that the Jenkins agent runs automatically on boot.
 
 ## Configuration
 
