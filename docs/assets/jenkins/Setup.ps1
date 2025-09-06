@@ -32,8 +32,8 @@ dotnet --version
 Write-Information "Done"
 
 # Install Java SDK to run Jenkins
-Write-Information "Installing JDK 11..."
-winget install Microsoft.OpenJDK.11
+Write-Information "Installing JDK 17..."
+winget install Microsoft.OpenJDK.17
 Write-Information "Done"
 
 # Install Jenkins

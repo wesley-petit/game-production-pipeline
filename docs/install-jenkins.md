@@ -2,8 +2,6 @@
 
 In these guide, we explain how to setup Jenkins to automatically package and pre-compile an Unreal Engine project.
 
-:warning: These guide use the JDK 11 as it's the only version available for P4V plugin, but the JDK will be deprecated in September 2024. Still it works, but it won't have the last security update.
-
 <p>
     <img width="49.5%" src="./assets/jenkins/jenkins-home-page.png" alt="Jenkins home page">
     <img width="49.5%" src="./assets/jenkins/jenkins-dahsboard.png" alt="Jenkins dashboard page">
@@ -40,14 +38,16 @@ In these guide, we explain how to setup Jenkins to automatically package and pre
 
     services:
         jenkins-main:
-            image: wesleypetit/jenkins:lts-jdk11
+            build:
+                context: .
+                dockerfile: Dockerfile
             container_name: jenkins-main
             restart: unless-stopped
             ports:
                 - "8080:8080"
                 - "50000:50000"
             volumes:
-                - jenkins_home:/var/jenkins_home
+                - home:/var/jenkins_home
             # networks:
             #     - nginx-proxy
 
@@ -56,12 +56,24 @@ In these guide, we explain how to setup Jenkins to automatically package and pre
     #         external: true
 
     volumes:
-        jenkins_home:
+        home:
     ```
 
-    It will automatically install several plugins :
+2. Copy the `Dockerfile` next to your docker compose :
+
+    ```Dockerfile
+    FROM jenkins/jenkins:lts
+    USER root
+    RUN apt-get update && apt-get install -y lsb-release
+
+    # Automatically install plugins
+    USER jenkins
+    RUN jenkins-plugin-cli --plugins "p4 matrix-auth postbuildscript preSCMbuildstep scmskip envinject discord-notifier saml"
+    ```
+
+    It will automatically install several plugins :  
        - [P4](https://plugins.jenkins.io/p4/) : Perforce Client plugin for the Jenkins SCM provider.  
-       - [Matrix Authorization Strategy](https://plugins.jenkins.io/matrix-auth/) : Offers matrix-based security authorization strategies (global and per-project).
+       - [Matrix Authorization Strategy](https://plugins.jenkins.io/matrix-auth/) : Offers matrix-based security authorization strategies (global and per-project).  
        - [PostBuildScript](https://plugins.jenkins.io/postbuildscript/) : A plugin for the Jenkins CI to run several configurable actions after a build, depending on the build result.  
        - [Pre SCM BuildStep](https://plugins.jenkins.io/preSCMbuildstep/) :  This plugin allows build steps to be performed before the SCM step performs an action.  
        - [SCM Skip](https://plugins.jenkins.io/scmskip/) : Plugin adds functionality of preventing a Job to be built when a specific pattern ([ci skip]) in SCM commit message is detected.  
@@ -69,23 +81,23 @@ In these guide, we explain how to setup Jenkins to automatically package and pre
        - [Discord Notifier](https://plugins.jenkins.io/discord-notifier/) : Discord Notifier provides a bridge between Jenkins and Discord through the built-in webhook functionality.  
        - [SAML](https://plugins.jenkins.io/saml/) : A SAML 2.0 Plugin for the Jenkins Continuous Integration server.  
 
-2. (Optional) If you want to use an anonymous account, pull `wesleypetit/jenkins:lts-jdk11` from portainer or run :
+3. (Optional) If you want to use an anonymous account, pull `jenkins/jenkins:lts` from portainer or run :
 
     ```bash
-    sudo docker pull wesleypetit/jenkins:lts-jdk11
+    sudo docker compose pull
     ```
 
-3. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host) to forward the port 8080 and [add a new stream](install-nginx-proxy-manager.md#add-a-new-stream) to forward the port 50000.
+4. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host) to forward the port 8080 and [add a new stream](install-nginx-proxy-manager.md#add-a-new-stream) to forward the port 50000.
 
-4. Deploy your container :
+5. Deploy your container :
 
     ```bash
     sudo docker-compose up -d
     ```
 
-5. Finally, set up jenkins using [this documentation](https://phoenixnap.com/kb/install-jenkins-ubuntu#ftoc-heading-5).
+6. Finally, set up jenkins using [this documentation](https://phoenixnap.com/kb/install-jenkins-ubuntu#ftoc-heading-5).
 
-6. Follow [this documentation](https://www.jenkins.io/doc/book/security/controller-isolation/#not-building-on-the-built-in-node) to disable building on the built-in node.
+7. Follow [this documentation](https://www.jenkins.io/doc/book/security/controller-isolation/#not-building-on-the-built-in-node) to disable building on the built-in node.
 
 ### Install a Windows Agent
 
@@ -96,7 +108,7 @@ In these guide, we explain how to setup Jenkins to automatically package and pre
     - [.NET Framework 3.5](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net35-sp1)
     - [Epic Games Launcher](https://store.epicgames.com/en-US/download)
     - The Unreal Engine version corresponding to your project.
-    - [Java SDK 11](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
+    - [Java SDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
     - [Jenkins](https://www.jenkins.io/download/)
 
     :information_source: I write a [small script](assets/jenkins/Setup.ps1) to install Unreal Engine prerequisites (Visual Studio, .NET core, JDK11 and Jenkins). Only the Epic Games launcher is not automatically installed, as it does not provide an official package.
@@ -165,7 +177,7 @@ We use Auth0, because it proposes a free tier without credit card that is limite
 
 1. Go to `Manage Jenkins > Credentials` and click on `(global)`.
 
-2. Click on Add Credentials.
+2. Click on Add Credentials and select `Perforce Ticket Credential`.
 
 3. Enter your P4PORT (without the ssl prefix).
 
@@ -185,7 +197,7 @@ We use Auth0, because it proposes a free tier without credit card that is limite
 
 ### Automatic builds for Unreal Engine
 
-In these guide, we explain how to setup a Jenkins pipeline to automatically package an Unreal Engine project and (optionally) send a discord notification containing a download link to the package. These guide is heavily inspire by [Patrice Vignola guide](https://patricevignola.com/post/automation-jenkins-unreal), I updated the instructions with Unreal Engine 5.
+In these guide, we explain how to setup a Jenkins pipeline to automatically package an Unreal Engine project and (optionally) send a discord notification containing a download link to the package. These guide is heavily inspired by [Patrice Vignola guide](https://patricevignola.com/post/automation-jenkins-unreal), I updated the instructions with Unreal Engine 5.
 
 <p align="center"><img width="80%" src="./assets/jenkins/package-pipeline.png" alt="Jenkins package pipeline"></p>
 
@@ -213,14 +225,14 @@ In these guide, we explain how to setup a Jenkins pipeline to automatically pack
     UE_REBUILD_BAT=C:\Program Files\Epic Games\UE_5.3\Engine\Build\BatchFiles\RunUAT.bat
     ```
 
-    Here is a full explanation of each fields :
-        - **PROJECT_NAME** : It corresponds to your .uproject filename, we expect to find it under the workspace root folder.
-        - **BUILD_CONFIG** : Unreal automation commands (BuildCookRun, BuildGame...). You can find more using the command `<YOUR_ENGINE_FOLDER>\Build\BatchFiles\RunUAT.bat -List`.
-        - **PLATFORM** : Platforms to build, join multiple platforms using + (e.g Win64+PS4+XboxOne).
-        - **CONFIG** : Configurations to build, join multiple configurations using + (e.g Development+Test).
-        - **ARCHIVE_DIRECTORY** : Directory to archive the builds to.
-        - **ARTIFACT_NAME** : Final build name. In our case, we add the changelist and the jenkins build id in the name (e.g AwesomeProject_Win_CL-100_ID-0).
-        - **UE_REBUILD_BAT** : Path to RunUAT.bat file corresponding to your Unreal Engine version.
+    Here is a full explanation of each fields :  
+        - **PROJECT_NAME** : It corresponds to your .uproject filename, we expect to find it under the workspace root folder.  
+        - **BUILD_CONFIG** : Unreal automation commands (BuildCookRun, BuildGame...). You can find more using the command `<YOUR_ENGINE_FOLDER>\Build\BatchFiles\RunUAT.bat -List`.  
+        - **PLATFORM** : Platforms to build, join multiple platforms using + (e.g Win64+PS4+XboxOne).  
+        - **CONFIG** : Configurations to build, join multiple configurations using + (e.g Development+Test).  
+        - **ARCHIVE_DIRECTORY** : Directory to archive the builds to.  
+        - **ARTIFACT_NAME** : Final build name. In our case, we add the changelist and the jenkins build id in the name (e.g AwesomeProject_Win_CL-100_ID-0).  
+        - **UE_REBUILD_BAT** : Path to RunUAT.bat file corresponding to your Unreal Engine version.  
 
 #### Setup build steps
 
@@ -229,7 +241,7 @@ In these guide, we explain how to setup a Jenkins pipeline to automatically pack
 2. Add the following command to package your game :
 
     ```bat
-    CALL "%UE_REBUILD_BAT%" %BUILD_CONFIG% -project=%WORKSPACE%\%PROJECT_NAME%.uproject -Platform=%PLATFORM% -configuration=%CONFIG% -archive -archivedirectory="%ARCHIVE_DIRECTORY%" -clean -cook -skipstage -build -pak -package -makebinaryconfig -distribution -SkipCookingEditorContent -ForceMonolithic -NoP4 -NoSubmit
+    CALL "%UE_REBUILD_BAT%" %BUILD_CONFIG% -project="%WORKSPACE%\%PROJECT_NAME%.uproject" -Platform=%PLATFORM% -configuration=%CONFIG% -archive -archivedirectory="%ARCHIVE_DIRECTORY%" -clean -cook -skipstage -build -pak -package -makebinaryconfig -distribution -SkipCookingEditorContent -ForceMonolithic -NoP4 -NoSubmit
     
     IF %ERRORLEVEL% NEQ 0 (EXIT %ERRORLEVEL%)
     ```
@@ -287,13 +299,14 @@ In these guide, we explain how to setup a Jenkins pipeline to automatically prec
 ### Setup Perforce Stream
 
 Here is the complete workflow :
-   - Coders make code changes and submit them to the coder stream.
-   - Jenkins monitors the mainline stream, syncs to the latest changes, builds the project, and submits the generated DLLs to the mainline stream.
-   - Artists/designers sync the mainline stream to receive the updated DLLs.
 
-On the technical aspect, you need two virtual stream :
-    - **coder** : inherits from main but excludes all Binaries folders.
-    - **jenkins-binaries-compilation** :  inherits from main but excludes all Content folders since it won't need it.
+- Coders make code changes and submit them to the coder stream.
+- Jenkins monitors the mainline stream, syncs to the latest changes, builds the project, and submits the generated DLLs to the mainline stream.
+- Artists/designers sync the mainline stream to receive the updated DLLs.
+
+On the technical aspect, you need two virtual stream :  
+    - **coder** : inherits from main but excludes all Binaries folders.  
+    - **jenkins-binaries-compilation** :  inherits from main but excludes all Content folders since it won't need it.  
 
 Here is the stream hierarchy :
 
@@ -305,7 +318,7 @@ Here is the stream hierarchy :
 
 2. In the `Advanced` tab, add the following paths and adapt it to your project :
 
-    ```
+    ```conf
     share ...
     exclude Binaries/...
     exclude Plugins/AwesomePlugin/Binaries/...
@@ -319,10 +332,10 @@ Here is the stream hierarchy :
 
 4. In the `Advanced` tab, add the following paths and adapt it to your project :
 
-    ```
+    ```conf
     isolate ...
     exclude Content/...
-    exclude  Plugins/AwesomePlugin/Content/...
+    exclude Plugins/AwesomePlugin/Content/...
     share Binaries/...
     share Plugins/AwesomePlugin/Binaries/...
     ```
@@ -339,18 +352,20 @@ Here is the stream hierarchy :
 
 4. Pick a Perforce Credentials, change the `Workspace behavior` to Streams and set the jenkins binaries stream in `Stream Codeline`.
 
-5. Under polling build filters, click on `Add new build filter` and select `Exclude changes outside Java pattern`.
+5. Change `Populate Options` to Sync only, it's the best settings for incremental build.
 
-6. With the following pattern, a build we be triggered only when a changelist contains a code file (.h or .cpp) :
+6. Under polling build filters, click on `Add new build filter` and select `Exclude changes outside Java pattern`.
 
-    ```
+7. With the following pattern, a build we be triggered only when a changelist contains a code file (.h or .cpp) :
+
+    ```conf
     //your_depot_path/main/.*\.cpp
     //your_depot_path/main/.*\.h
     ```
 
-7. (optional) Enable Poll SCM for build triggers, Jenkins will scan the current workspace and compare with the server to trigger or not a build. In our case, we set the poll frequency to every 30 minutes (e.g H/30 * * * *).
+8. (optional) Enable Poll SCM for build triggers, Jenkins will scan the current workspace and compare with the server to trigger or not a build. In our case, we set the poll frequency to every 30 minutes (e.g H/30 * * * *).
 
-8. Enable `Inject environment variables to the build process` and add these fields in the Properties Content field :
+9. Enable `Inject environment variables to the build process` and add these fields in the Properties Content field :
 
     ```conf
     PROJECT_NAME=<YOUR_PROJECT_NAME>
@@ -360,12 +375,12 @@ Here is the stream hierarchy :
     UE_REBUILD_BAT=C:\Program Files\Epic Games\UE_5.3\Engine\Build\BatchFiles\RunUAT.bat
     ```
 
-    Here is a full explanation of each fields :
-        - **PROJECT_NAME** : It corresponds to your .uproject filename, we expect to find it under the workspace root folder.
-        - **BUILD_CONFIG** : Unreal automation commands (BuildCookRun, BuildGame...). You can find more using the command `<YOUR_ENGINE_FOLDER>\Build\BatchFiles\RunUAT.bat -List`.
-        - **PLATFORM** : Platforms to build, join multiple platforms using + (e.g Win64+PS4+XboxOne).
-        - **CONFIG** : Configurations to build, join multiple configurations using + (e.g Development+Test).
-        - **UE_REBUILD_BAT** : Path to RunUAT.bat file corresponding to your Unreal Engine version.
+    Here is a full explanation of each fields :  
+        - **PROJECT_NAME** : It corresponds to your .uproject filename, we expect to find it under the workspace root folder.  
+        - **BUILD_CONFIG** : Unreal automation commands (BuildCookRun, BuildGame...). You can find more using the command `<YOUR_ENGINE_FOLDER>\Build\BatchFiles\RunUAT.bat -List`.  
+        - **PLATFORM** : Platforms to build, join multiple platforms using + (e.g Win64+PS4+XboxOne).  
+        - **CONFIG** : Configurations to build, join multiple configurations using + (e.g Development+Test).  
+        - **UE_REBUILD_BAT** : Path to RunUAT.bat file corresponding to your Unreal Engine version.  
 
 #### Setup pre-compile steps
 
@@ -413,9 +428,9 @@ Here is the stream hierarchy :
 
 6. Click on Advanced and add the following paths :
 
-    ```
-    //your_depot_path/jenkins-binaries-compilation/Binaries/...
-    //your_depot_path/jenkins-binaries-compilation/AwesomePlugin/Binaries/...
+    ```conf
+    //your_depot_path/main/Binaries/...
+    //your_depot_path/main/AwesomePlugin/Binaries/...
     ```
 
     :warning: Submit with publish paths ignore p4ignore files.
