@@ -84,7 +84,7 @@ In these guide, we explain how to setup Jenkins to automatically package and pre
 3. (Optional) If you want to use an anonymous account, pull `jenkins/jenkins:lts` from portainer or run :
 
     ```bash
-    sudo docker compose pull
+    sudo docker pull jenkins/jenkins:lts
     ```
 
 4. (Optional) If you install Nginx Proxy Manager, [add a new proxy host](install-nginx-proxy-manager.md#add-a-new-proxy-host) to forward the port 8080 and [add a new stream](install-nginx-proxy-manager.md#add-a-new-stream) to forward the port 50000.
